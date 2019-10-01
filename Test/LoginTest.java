@@ -12,6 +12,7 @@ class LoginTest {
 
     @Test
     public void loginWithValidData() {
+
         main.loginWithValidData();
         WebElement avatarPicture = main.getDriver().findElement(By.xpath("//*[@id=\"header-details-user-fullname\"]/span/span"));
         avatarPicture.click();
