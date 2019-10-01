@@ -19,6 +19,7 @@ public class Main {
         return driver;
     }
 
+    //login page
     public void loginWithValidData() {
         driver.get("https://jira.codecool.codecanvas.hu/login.jsp");
         WebElement loginField = driver.findElement(By.xpath("//*[@id=\"login-form-username\"]"));
