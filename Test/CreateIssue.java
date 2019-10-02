@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,13 +16,18 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CreateIssue {
 
     private Main main = new Main();
-    private WebDriverWait webDriverWait = new WebDriverWait(main.getDriver(), 15);
+    private WebDriverWait webDriverWait = new WebDriverWait(main.getDriver(), 20);
     private CreateIssueSrc createIssue = new CreateIssueSrc();
 
     @BeforeEach
     public void setup(){
         main.loginWithValidData();
         main.getDriver().manage().window().maximize();
+    }
+
+    @AfterEach
+    public void close(){
+        main.getDriver().close();
     }
 
     @Test
@@ -35,13 +41,13 @@ public class CreateIssue {
         createButton.click();
         WebElement dropDownButtonProject = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"project-single-select\"]/span")));
         dropDownButtonProject.click();
-        WebElement dropDownButtonIssue = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"issuetype-field\"]")));
         try {
             WebElement clickMtp = main.getDriver().findElement(By.linkText("Main Testing Project (MTP)"));
             clickMtp.click();
         } catch (NoSuchElementException e){
             dropDownButtonProject.click();
         }
+        WebElement dropDownButtonIssue = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"issuetype-field\"]")));
         dropDownButtonIssue.click();
         try {
             WebElement selectTask = main.getDriver().findElement(By.linkText("Task"));
@@ -84,6 +90,7 @@ public class CreateIssue {
             if(summaries.get(i).getText().equals("text Subtask")){
                 assertEquals(summaries.get(i).getText(), "text Subtask");
             }
+            break;
         }
     }
 
