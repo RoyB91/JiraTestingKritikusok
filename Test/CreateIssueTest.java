@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CreateIssue {
+public class CreateIssueTest {
 
     private Main main = new Main();
     private WebDriverWait webDriverWait = new WebDriverWait(main.getDriver(), 20);
