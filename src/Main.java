@@ -3,6 +3,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+
 public class Main {
 
     public static void main(String[] args) {
@@ -18,6 +19,7 @@ public class Main {
         return driver;
     }
 
+    //login page
     public void loginWithValidData() {
         driver.get("https://jira.codecool.codecanvas.hu/login.jsp");
         WebElement loginField = driver.findElement(By.xpath("//*[@id=\"login-form-username\"]"));
