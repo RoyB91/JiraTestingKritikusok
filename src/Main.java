@@ -2,24 +2,33 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
+
 
 public class Main {
 
-    private static WebDriver driver = new ChromeDriver();
+    public static void main(String[] args) {
 
-    public static void createJetiProject(){
-        driver.manage().window().maximize();
-        driver.navigate().to("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
-        WebElement createButton = driver.findElement(By.xpath("//*[@id=\"create_link\"]"));
-        createButton.click();
-        WebElement dropDownButton = driver.findElement(By.xpath("//*[@id=\"issuetype-single-select\"]/span"));
-        dropDownButton.click();
-        Select select = new Select(dropDownButton);
-        select.selectByVisibleText("Bug");
     }
 
-    public static void main(String[] args) {
-        createJetiProject();
+    private String username = System.getenv("UserName");
+    private String password = System.getenv("PASSWORD");
+
+    private WebDriver driver = new ChromeDriver();
+
+    public WebDriver getDriver() {
+        return driver;
+    }
+
+    //login page
+    public void loginWithValidData() {
+        driver.get("https://jira.codecool.codecanvas.hu/login.jsp");
+        WebElement loginField = driver.findElement(By.xpath("//*[@id=\"login-form-username\"]"));
+        loginField.clear();
+        loginField.sendKeys(username);
+
+        WebElement passwordField = driver.findElement(By.xpath("//*[@id=\"login-form-password\"]"));
+        passwordField.sendKeys(password);
+        WebElement loginButton = driver.findElement(By.xpath("//*[@id=\"login-form-submit\"]"));
+        loginButton.click();
     }
 }
