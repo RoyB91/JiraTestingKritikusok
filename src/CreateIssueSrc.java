@@ -14,13 +14,13 @@ public class CreateIssueSrc {
         createButton.click();
         WebElement dropDownButtonProject = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"project-single-select\"]/span")));
         dropDownButtonProject.click();
-        WebElement dropDownButtonIssue = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"issuetype-field\"]")));
         try {
             WebElement clickProject = driver.findElement(By.linkText(projectName));
             clickProject.click();
         } catch (NoSuchElementException e) {
             dropDownButtonProject.click();
         }
+        WebElement dropDownButtonIssue = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"issuetype-field\"]")));
         dropDownButtonIssue.click();
         try {
             WebElement selectBug = driver.findElement(By.linkText(issueType));
@@ -40,25 +40,27 @@ public class CreateIssueSrc {
         createButton.click();
         WebElement dropDownButtonProject = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"project-single-select\"]/span")));
         dropDownButtonProject.click();
-        WebElement dropDownButtonIssue = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#issuetype-single-select > .icon")));
         try {
-            WebElement clickProject = driver.findElement(By.linkText(projectName));
+            WebElement clickProject = webDriverWait.until((ExpectedConditions.elementToBeClickable(By.linkText(projectName))));
             clickProject.click();
         } catch (NoSuchElementException e) {
-            dropDownButtonProject.click();
+            WebElement dropDownButtonProject1 = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"project-single-select\"]/span")));
+            dropDownButtonProject1.click();
         }
+        WebElement dropDownButtonIssue = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"issuetype-single-select\"]/span")));
         dropDownButtonIssue.click();
         try {
             WebElement selectIssue = driver.findElement(By.linkText(issueType));
             selectIssue.click();
         } catch (NoSuchElementException e) {
-            dropDownButtonIssue.click();
+            WebElement dropDownButtonIssue2 = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"issuetype-single-select\"]/span")));
+            dropDownButtonIssue2.click();
         }
-        driver.findElement(By.cssSelector("#issuetype-single-select > .icon")).click();
-        WebElement selectStory = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.linkText("Story")));
+        WebElement selectStory = webDriverWait.until((ExpectedConditions.elementToBeClickable(driver.findElement(By.partialLinkText("Story")))));
         selectStory.click();
-        driver.findElement(By.cssSelector("#issuetype-single-select > .icon")).click();
-        WebElement selectBug = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.linkText("Bug")));
+        WebElement dropDownButtonIssue1 = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"issuetype-single-select\"]/span")));
+        dropDownButtonIssue1.click();
+        WebElement selectBug = webDriverWait.until((ExpectedConditions.elementToBeClickable(driver.findElement(By.partialLinkText("Bug")))));
         selectBug.click();
     }
 
