@@ -1,9 +1,12 @@
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -11,13 +14,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CreateIssue {
 
     private Main main = new Main();
     private WebDriverWait webDriverWait = new WebDriverWait(main.getDriver(), 15);
-    private CreateIssueSrc createIssue = new CreateIssueSrc();
 
     @BeforeEach
     public void setup() {
@@ -30,9 +33,42 @@ public class CreateIssue {
         main.getDriver().close();
     }
 
-    @Test
-    public void createProject() {
-        createIssue.createProject(main.getDriver(), "JETI Project (JETI)", "Bug", "create issue");
+    @ParameterizedTest(name = "{index} => projectName={0}")
+    @CsvSource({"COALA Project (COALA)", "JETI Project (JETI)", "TOUCAN projekt (TOUCAN)"})
+    public void createProject(String projectName) {
+        WebDriverWait webDriverWait = new WebDriverWait(main.getDriver(), 5);
+
+        main.getDriver().findElement(By.id("create_link")).click();
+        main.getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        main.getDriver().findElement(By.xpath("//*[@id=\"project-single-select\"]/span")).click();
+        webDriverWait.until(ExpectedConditions.attributeToBe(main.getDriver().findElement(By.xpath("//*[@id=\"project-field\"]")), "aria-expanded", "true"));
+
+        try {
+            WebElement inputProject = main.getDriver().findElement(By.xpath("//*[@id=\"project-field\"]"));
+            inputProject.sendKeys(projectName);
+            inputProject.sendKeys(Keys.TAB);
+        } catch (NoSuchElementException e) {
+            main.getDriver().findElement(By.xpath("//*[@id=\"project-field\"]")).sendKeys(Keys.ESCAPE);
+        }
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"issuetype-single-select\"]/span")));
+        //Check if user have right to create this type of project
+        String fieldProjectName = main.getDriver().findElement(By.xpath("//*[@id=\"project-field\"]")).getAttribute("value");
+
+        assertEquals(fieldProjectName, projectName, "User has no right to create this type of issue.");
+
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"issuetype-single-select\"]/span")));
+        //CheckBugType
+        WebElement inputField = main.getDriver().findElement(By.xpath("//*[@id=\"issuetype-field\"]"));
+        inputField.sendKeys("Bug");
+        inputField.sendKeys(Keys.ENTER);
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"issuetype-single-select\"]/span")));
+        String resultBug = main.getDriver().findElement(By.xpath("//*[@id=\"issuetype-field\"]")).getAttribute("value");
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(main.getDriver().findElement(By.xpath("//*[@id=\"issuetype-single-select\"]/span"))));
+        assertEquals("Bug", resultBug);
+        WebElement editSummary = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"summary\"]")));
+        editSummary.sendKeys("create issue");
+        WebElement clickCreateButton = main.getDriver().findElement(By.xpath("//*[@id=\"create-issue-submit\"]"));
+        clickCreateButton.click();
     }
 
     @Test
@@ -99,7 +135,7 @@ public class CreateIssue {
     }
 
     @ParameterizedTest(name = "{index} => projectName={0}")
-    @CsvSource({"COALA Project (COALA)", "JETI PROJECT (JETI)", "TOUCAN projekt (TOUCAN)"})
+    @CsvSource({"COALA Project (COALA)", "JETI Project (JETI)", "TOUCAN projekt (TOUCAN)"})
     public void selectIssueType(String projectName) {
         WebDriverWait webDriverWait = new WebDriverWait(main.getDriver(), 5);
 
@@ -115,6 +151,7 @@ public class CreateIssue {
         } catch (NoSuchElementException e) {
             main.getDriver().findElement(By.xpath("//*[@id=\"project-field\"]")).sendKeys(Keys.ESCAPE);
         }
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"issuetype-single-select\"]/span")));
         //Check if user have right to create this type of project
         String fieldProjectName = main.getDriver().findElement(By.xpath("//*[@id=\"project-field\"]")).getAttribute("value");
 
@@ -124,7 +161,7 @@ public class CreateIssue {
         //CheckBugType
         WebElement inputField = main.getDriver().findElement(By.xpath("//*[@id=\"issuetype-field\"]"));
         inputField.sendKeys("Bug");
-        inputField.sendKeys(Keys.ENTER);
+        inputField.sendKeys(Keys.TAB);
         webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"issuetype-single-select\"]/span")));
         String resultBug = main.getDriver().findElement(By.xpath("//*[@id=\"issuetype-field\"]")).getAttribute("value");
         webDriverWait.until(ExpectedConditions.elementToBeClickable(main.getDriver().findElement(By.xpath("//*[@id=\"issuetype-single-select\"]/span"))));
@@ -134,7 +171,7 @@ public class CreateIssue {
         WebElement inputField2 = main.getDriver().findElement(By.xpath("//*[@id=\"issuetype-field\"]"));
         webDriverWait.until(ExpectedConditions.elementToBeClickable(main.getDriver().findElement(By.xpath("//*[@id=\"issuetype-single-select\"]/span"))));
         inputField2.sendKeys("Task");
-        inputField2.sendKeys(Keys.ENTER);
+        inputField2.sendKeys(Keys.TAB);
         webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"issuetype-single-select\"]/span")));
         String resultTask = main.getDriver().findElement(By.xpath("//*[@id=\"issuetype-field\"]")).getAttribute("value");
         webDriverWait.until(ExpectedConditions.elementToBeClickable(main.getDriver().findElement(By.xpath("//*[@id=\"issuetype-single-select\"]/span"))));
@@ -144,7 +181,7 @@ public class CreateIssue {
         WebElement inputField3 = main.getDriver().findElement(By.xpath("//*[@id=\"issuetype-field\"]"));
         webDriverWait.until(ExpectedConditions.elementToBeClickable(main.getDriver().findElement(By.xpath("//*[@id=\"issuetype-single-select\"]/span"))));
         inputField3.sendKeys("Story");
-        inputField3.sendKeys(Keys.ENTER);
+        inputField3.sendKeys(Keys.TAB);
         webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"issuetype-single-select\"]/span")));
         String resultStory = main.getDriver().findElement(By.xpath("//*[@id=\"issuetype-field\"]")).getAttribute("value");
         webDriverWait.until(ExpectedConditions.elementToBeClickable(main.getDriver().findElement(By.xpath("//*[@id=\"issuetype-single-select\"]/span"))));
