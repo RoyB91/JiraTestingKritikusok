@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ManageGlassTest {
@@ -31,5 +33,10 @@ public class ManageGlassTest {
         versions.click();
         WebElement specifiedVersion = main.getDriver().findElement(By.xpath("//*[@id=\"versions-table\"]/tbody[2]/tr[25]/td[1]/div/a"));
         specifiedVersion.click();
+        ArrayList<String> tabs2 = new ArrayList<String> (main.getDriver().getWindowHandles());
+        String validateText = main.getDriver().switchTo().window(tabs2.get(1)).findElement(By.xpath("//*[@id=\"release-report\"]/header/div/div[1]/h2")).getText();
+        assertEquals(validateText, "Version kritikusok1.0");
+        main.getDriver().close();
+        main.getDriver().switchTo().window(tabs2.get(0));
     }
 }
