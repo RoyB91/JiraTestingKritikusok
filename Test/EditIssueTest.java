@@ -1,4 +1,5 @@
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
@@ -23,6 +24,11 @@ class EditIssueTest {
 
     }
 
+    @AfterEach
+    public void close() {
+        driver.quit();
+    }
+
     @Test
     public void editMTPIssues() {
         driver.navigate().to("https://jira.codecool.codecanvas.hu/browse/MTP-270");
@@ -37,7 +43,6 @@ class EditIssueTest {
         assertEquals("su", editIssuePage.getIssueSummaryName(driver));
 
         editIssuePage.resetIssueSummary(driver, "https://jira.codecool.codecanvas.hu/browse/MTP-270", "summary");
-        driver.close();
     }
 
     @Test
@@ -48,7 +53,7 @@ class EditIssueTest {
         } catch (ElementNotVisibleException | NoSuchElementException e) {
             fail("This user has no access to edit this type of ISSUE");
         } finally {
-            driver.close();
+            driver.quit();
         }
     }
 
@@ -60,7 +65,8 @@ class EditIssueTest {
         } catch (ElementNotVisibleException | NoSuchElementException e) {
             fail("This user has no access to edit this type of ISSUE");
         } finally {
-            driver.close();
+            driver.quit();
+
         }
     }
 
@@ -72,7 +78,8 @@ class EditIssueTest {
         } catch (ElementNotVisibleException | NoSuchElementException e) {
             fail("This user has no access to edit this type of ISSUE");
         } finally {
-            driver.close();
+            driver.quit();
+
         }
     }
 
@@ -85,7 +92,6 @@ class EditIssueTest {
         editIssuePage.getSummaryField(driver).clear();
         editIssuePage.getUpdateButton(driver).click();
         assertTrue(driver.findElement(By.xpath("//*[@id=\"edit-issue-dialog\"]/div[2]/div[1]/div/form/div[1]/div/div[1]/div")).isDisplayed());
-        driver.close();
     }
 
     @Test
@@ -99,7 +105,6 @@ class EditIssueTest {
         editIssuePage.getCancelButton(driver).click();
         driver.switchTo().alert().accept();
         assertEquals("summary", editIssuePage.getIssueSummaryName(driver));
-        driver.close();
     }
 
 }

@@ -39,12 +39,13 @@ class CreateComponentTestWithGlass {
         driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div/div[1]/nav/div/div[2]/ul/li[7]/a/span[1]")).click();
 
 
-         WebElement table = driver.findElement(By.xpath("//*[@id=\"components-table\"]")).findElement(By.className("items"));
+        WebElement table = driver.findElement(By.xpath("//*[@id=\"components-table\"]")).findElement(By.className("items"));
 
 
         String compName = table.findElement(By.xpath("//*[contains(text(), 'Kritikus komponens')]")).getAttribute("innerText");
         assertEquals("Kritikus komponens", compName);
         glassComponent.deleteComponent(driver, "https://jira.codecool.codecanvas.hu/projects/PP1?selectedItem=com.atlassian.jira.jira-projects-plugin:components-page", "Kritikus komponens");
+        driver.quit();
     }
 
 }

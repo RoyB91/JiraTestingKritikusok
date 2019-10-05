@@ -24,7 +24,7 @@ public class IssueTypeSchemeGlass {
 
     @AfterEach
     public void close() {
-        main.getDriver().close();
+        main.getDriver().quit();
     }
 
 
@@ -39,6 +39,7 @@ public class IssueTypeSchemeGlass {
 //        WebElement privateProject1 = main.getDriver().findElement(By.xpath("//*[@id=\"projects\"]/div/table/tbody/tr[9]/td[1]/a"));
 //        privateProject1.click();
 //
+//        main.getDriver().manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 //
 //        WebElement projectSettings = main.getDriver().findElement(By.xpath("//*[@id=\"content\"]/div[1]/div/div[2]"));
 //        projectSettings.click();

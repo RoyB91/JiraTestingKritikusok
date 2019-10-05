@@ -19,7 +19,7 @@ public class BrowseIssueTest {
 
     @AfterEach
     public void close(){
-        main.getDriver().close();
+        main.getDriver().quit();
     }
 
     @Test

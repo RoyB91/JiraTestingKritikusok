@@ -15,6 +15,7 @@ class LogoutTest {
 
         WebElement logoutOption = main.getDriver().findElement(By.xpath("//*[@id=\"log_out\"]"));
         logoutOption.click();
+        main.getDriver().quit();
     }
 
 }

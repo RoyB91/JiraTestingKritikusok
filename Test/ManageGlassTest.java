@@ -23,7 +23,7 @@ public class ManageGlassTest {
 
     @AfterEach
     public void close(){
-        main.getDriver().close();
+        main.getDriver().quit();
     }
 
     @Test

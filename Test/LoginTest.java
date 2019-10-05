@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import org.openqa.selenium.By;
@@ -20,6 +21,10 @@ class LoginTest {
     private String password = System.getenv("PASSWORD");
     private WebDriverWait wait = new WebDriverWait(driver, 15);
 
+    @AfterEach
+    public void close(){
+        driver.quit();
+    }
 
     @Test
     public void loginWithValidDataFromLoginPage() {
@@ -30,7 +35,6 @@ class LoginTest {
 
         WebElement logoutOption = driver.findElement(By.xpath("//*[@id=\"log_out\"]"));
         assertTrue(logoutOption.isDisplayed());
-        driver.close();
     }
 
     @Test
@@ -46,7 +50,6 @@ class LoginTest {
         loginButton.click();
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[@id=\"login-form\"]/div[1]/div[1]"))));
         assertTrue(driver.findElement(By.xpath("//*[@id=\"login-form\"]/div[1]/div[1]")).isDisplayed());
-        driver.close();
     }
 
     @Test
@@ -68,7 +71,6 @@ class LoginTest {
 
         WebElement logoutOption = driver.findElement(By.xpath("//*[@id=\"log_out\"]"));
         assertTrue(logoutOption.isDisplayed());
-        driver.close();
     }
 
     @Test
@@ -84,7 +86,6 @@ class LoginTest {
         loginButton.click();
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[@id=\"login-form\"]/div[1]/div[1]"))));
         assertTrue(driver.findElement(By.xpath("//*[@id=\"login-form\"]/div[1]/div[1]")).isDisplayed());
-        driver.close();
     }
 
     @Test
@@ -100,7 +101,6 @@ class LoginTest {
         loginButton.click();
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[@id=\"login-form\"]/div[1]/div[1]"))));
         assertTrue(driver.findElement(By.xpath("//*[@id=\"login-form\"]/div[1]/div[1]")).isDisplayed());
-        driver.close();
     }
 
 }
