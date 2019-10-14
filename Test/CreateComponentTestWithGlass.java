@@ -14,7 +14,7 @@ class CreateComponentTestWithGlass {
     private Main main = new Main();
     private WebDriver driver = main.getDriver();
     private WebDriverWait wait = new WebDriverWait(driver, 15);
-    private EditIssuePage editIssuePage = new EditIssuePage();
+//    private EditIssuePage editIssuePage = new EditIssuePage();
     private GlassComponent glassComponent = new GlassComponent();
 
     @BeforeEach

@@ -1,46 +1,76 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import java.util.concurrent.TimeUnit;
 
 class EditIssuePage {
 
-    private WebElement editButton;
+    private WebDriver driver;
+
+
+    @FindBy(id = "summary")
     private WebElement summaryField;
+
+    @FindBy(id = "edit-issue-submit")
     private WebElement updateButton;
-    private WebElement issueSummaryName;
+
+    @FindBy(xpath = "//*[@class='cancel']")
     private WebElement cancelButton;
 
+    @FindBy(className = "jira-dialog-content")
+    private WebElement jiraDialogContent;
+
+    @FindBy(className = "error")
+    private WebElement errorField;
+
+
+    EditIssuePage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
+    public void click(WebElement element) {
+        element.click();
+    }
+
+    public void fillText(WebElement element, String text) {
+        element.sendKeys(text);
+    }
+
+    public void clearField(WebElement element) {
+        element.clear();
+    }
+
     public void resetIssueSummary(WebDriver driver, String url, String defaultTestText) {
+        IssuePage issuePage = new IssuePage(driver);
         driver.navigate().to(url);
-        editButton = driver.findElement(By.xpath("//*[@id=\"edit-issue\"]/span[2]"));
-        editButton.click();
+        click(issuePage.getEditIssueButton());
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        summaryField = driver.findElement(By.xpath("//*[@id=\"summary\"]"));
-        summaryField.clear();
-        summaryField.sendKeys(defaultTestText);
-        updateButton = driver.findElement(By.xpath("//*[@id=\"edit-issue-submit\"]"));
-        updateButton.click();
+        clearField(summaryField);
+        fillText(summaryField, defaultTestText);
+        click(updateButton);
     }
 
-    public WebElement getEditButton(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"edit-issue\"]/span[2]"));
+    public WebElement getSummaryField() {
+        return summaryField;
     }
 
-    public WebElement getSummaryField(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"summary\"]"));
+    public WebElement getUpdateButton() {
+        return updateButton;
     }
 
-    public WebElement getUpdateButton(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"edit-issue-submit\"]"));
+    public WebElement getJiraDialogContent() {
+        return jiraDialogContent;
     }
 
-    public String getIssueSummaryName(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"summary-val\"]")).getText();
+    public WebElement getErrorField() {
+        return errorField;
     }
 
-    public WebElement getCancelButton(WebDriver driver) {
-        return driver.findElement(By.cssSelector("#edit-issue-dialog > div.jira-dialog-content > div.qf-container > div > form > div.buttons-container.form-footer > div > a"));
+    public WebElement getCancelButton() {
+        return cancelButton;
     }
 }
