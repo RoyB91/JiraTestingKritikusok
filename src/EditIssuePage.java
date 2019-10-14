@@ -3,6 +3,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -45,9 +47,12 @@ class EditIssuePage {
     }
 
     public void resetIssueSummary(WebDriver driver, String url, String defaultTestText) {
+        WebDriverWait wait = new WebDriverWait(driver, 15);
         IssuePage issuePage = new IssuePage(driver);
         driver.navigate().to(url);
         click(issuePage.getEditIssueButton());
+        wait.until(ExpectedConditions.visibilityOf(getJiraDialogContent()));
+
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         clearField(summaryField);
         fillText(summaryField, defaultTestText);
