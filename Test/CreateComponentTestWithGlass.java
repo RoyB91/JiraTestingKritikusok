@@ -35,6 +35,7 @@ class CreateComponentTestWithGlass {
         componentPage.fillText(componentPage.getComponentFieldName(), compName);
         componentPage.fillText(componentPage.getAssigneeField(), assignee);
         componentPage.enterKeys(componentPage.getAssigneeField(), Keys.ENTER);
+
         componentPage.click(componentPage.getAddButton());
         componentPage.click(componentPage.getGlassDocumentationButton());
 
