@@ -64,7 +64,6 @@ public class CreateIssue {
         webDriverWait.until(ExpectedConditions.visibilityOf(createIssuePage.getProjectFieldButton()));
         assertEquals(createIssuePage.getFieldProjectName(), project, "User has no right to create this type of issue.");
 
-        createIssuePage.clickElement(createIssuePage.getCreateIssueButton());
     }
 
     @Test
@@ -72,20 +71,24 @@ public class CreateIssue {
 
         createIssuePage.clickElement(mainNavBar.getCreateButton());
         webDriverWait.until(ExpectedConditions.elementToBeClickable(createIssuePage.getProjectFieldButton()));
-        //createIssuePage.clickElement(createIssuePage.getProjectFieldButton());
+        createIssuePage.clickElement(createIssuePage.getProjectFieldButton());
         try {
-            createIssuePage.clickElement(createIssuePage.getFindMTP());
+            createIssuePage.getProjectFieldButton().sendKeys("Main Testing Project (MTP)");
+            createIssuePage.getProjectFieldButton().sendKeys(Keys.TAB);
         } catch (NoSuchElementException e) {
-            createIssuePage.clickElement(createIssuePage.getProjectFieldButton());
+            createIssuePage.getProjectFieldButton().sendKeys(Keys.ESCAPE);
         }
         webDriverWait.until(ExpectedConditions.elementToBeClickable(createIssuePage.getIssueTypeField()));
+        webDriverWait.until(ExpectedConditions.visibilityOf(createIssuePage.getIssueTypeField()));
         createIssuePage.clickElement(createIssuePage.getIssueTypeField());
         try {
-            createIssuePage.clickElement(createIssuePage.getFindTask());
+            createIssuePage.getIssueTypeField().sendKeys("Task");
+            createIssuePage.getIssueTypeField().sendKeys(Keys.ENTER);
         } catch (NoSuchElementException e) {
-            createIssuePage.clickElement(createIssuePage.getIssueTypeField());
+            createIssuePage.getProjectFieldButton().sendKeys(Keys.ESCAPE);
         }
         webDriverWait.until(ExpectedConditions.elementToBeClickable(createIssuePage.getSummaryField()));
+        webDriverWait.until(ExpectedConditions.visibilityOf(createIssuePage.getSummaryField()));
         createIssuePage.getSummaryField().sendKeys("create issue");
         createIssuePage.clickElement(createIssuePage.getCreateIssueButton());
 

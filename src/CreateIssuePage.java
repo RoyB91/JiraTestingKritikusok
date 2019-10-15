@@ -29,7 +29,7 @@ public class CreateIssuePage {
     private WebElement findMTP;
     @FindBy(linkText = "Task")
     private WebElement findTask;
-    @FindBy(css = ".issue-created-key.issue-link")
+    @FindBy(className = "issue-created-key.issue-link")
     private WebElement clickLink;
     @FindBy(className = "error")
     private WebElement errorMessage;
