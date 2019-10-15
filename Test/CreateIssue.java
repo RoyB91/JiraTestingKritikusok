@@ -2,6 +2,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -20,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CreateIssue {
 
     private Main main = new Main();
+    private MainNavBar mainNavBar = new MainNavBar(main.getDriver());
+    private CreateIssuePage createIssuePage = new CreateIssuePage(main.getDriver());
     private WebDriverWait webDriverWait = new WebDriverWait(main.getDriver(), 15);
 
     @BeforeEach
@@ -33,84 +36,72 @@ public class CreateIssue {
         main.getDriver().quit();
     }
 
-    @ParameterizedTest(name = "{index} => projectName={0}")
-    @CsvSource({"COALA Project (COALA)", "JETI Project (JETI)", "TOUCAN projekt (TOUCAN)"})
-    public void createProject(String projectName) {
-        WebDriverWait webDriverWait = new WebDriverWait(main.getDriver(), 5);
-
-        main.getDriver().findElement(By.id("create_link")).click();
-        main.getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        main.getDriver().findElement(By.xpath("//*[@id=\"project-single-select\"]/span")).click();
-        webDriverWait.until(ExpectedConditions.attributeToBe(main.getDriver().findElement(By.xpath("//*[@id=\"project-field\"]")), "aria-expanded", "true"));
-
+    @ParameterizedTest
+    @CsvFileSource(resources = "resources/createIssue.csv", numLinesToSkip = 1)
+    public void createProject(String project, String issueType, String summary) {
+        createIssuePage.clickElement(mainNavBar.getCreateButton());
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(createIssuePage.getProjectFieldButton()));
+        createIssuePage.clickElement(createIssuePage.getProjectFieldButton());
+        //webDriverWait.until(ExpectedConditions.attributeToBe(createIssuePage.getValueTrue(), "aria-expanded", "true"));
         try {
-            WebElement inputProject = main.getDriver().findElement(By.xpath("//*[@id=\"project-field\"]"));
-            inputProject.sendKeys(projectName);
-            inputProject.sendKeys(Keys.TAB);
+            createIssuePage.getProjectFieldButton().sendKeys(project);
+            createIssuePage.getProjectFieldButton().sendKeys(Keys.TAB);
         } catch (NoSuchElementException e) {
-            main.getDriver().findElement(By.xpath("//*[@id=\"project-field\"]")).sendKeys(Keys.ESCAPE);
+            createIssuePage.getProjectFieldButton().sendKeys(Keys.ESCAPE);
         }
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"issuetype-single-select\"]/span")));
+
         //Check if user have right to create this type of project
-        String fieldProjectName = main.getDriver().findElement(By.xpath("//*[@id=\"project-field\"]")).getAttribute("value");
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(createIssuePage.getIssueTypeField()));
 
-        assertEquals(fieldProjectName, projectName, "User has no right to create this type of issue.");
+        webDriverWait.until(ExpectedConditions.visibilityOf(createIssuePage.getIssueTypeField()));
+        createIssuePage.clickElement(createIssuePage.getIssueTypeField());
+        createIssuePage.getIssueTypeField().sendKeys(issueType);
+        createIssuePage.getIssueTypeField().sendKeys(Keys.ENTER);
+        //webDriverWait.until(ExpectedConditions.elementToBeClickable(createIssuePage.getWaitForIssueTypeFieldButton()));
 
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"issuetype-single-select\"]/span")));
-        //CheckBugType
-        WebElement inputField = main.getDriver().findElement(By.xpath("//*[@id=\"issuetype-field\"]"));
-        inputField.sendKeys("Bug");
-        inputField.sendKeys(Keys.ENTER);
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"issuetype-single-select\"]/span")));
-        String resultBug = main.getDriver().findElement(By.xpath("//*[@id=\"issuetype-field\"]")).getAttribute("value");
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(main.getDriver().findElement(By.xpath("//*[@id=\"issuetype-single-select\"]/span"))));
-        assertEquals("Bug", resultBug);
-        WebElement editSummary = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"summary\"]")));
-        editSummary.sendKeys("create issue");
-        WebElement clickCreateButton = main.getDriver().findElement(By.xpath("//*[@id=\"create-issue-submit\"]"));
-        clickCreateButton.click();
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(createIssuePage.getSummaryField()));
+        createIssuePage.getSummaryField().sendKeys(summary);
+        webDriverWait.until(ExpectedConditions.visibilityOf(createIssuePage.getProjectFieldButton()));
+        assertEquals(createIssuePage.getFieldProjectName(), project, "User has no right to create this type of issue.");
+
+        createIssuePage.clickElement(createIssuePage.getCreateIssueButton());
     }
 
     @Test
     public void createIssue() {
 
-        WebElement createButton = main.getDriver().findElement(By.id("create_link"));
-        createButton.click();
-        WebElement dropDownButtonProject = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"project-single-select\"]/span")));
-        dropDownButtonProject.click();
+        createIssuePage.clickElement(mainNavBar.getCreateButton());
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(createIssuePage.getProjectFieldButton()));
+        //createIssuePage.clickElement(createIssuePage.getProjectFieldButton());
         try {
-            WebElement clickMtp = main.getDriver().findElement(By.linkText("Main Testing Project (MTP)"));
-            clickMtp.click();
+            createIssuePage.clickElement(createIssuePage.getFindMTP());
         } catch (NoSuchElementException e) {
-            dropDownButtonProject.click();
+            createIssuePage.clickElement(createIssuePage.getProjectFieldButton());
         }
-        WebElement dropDownButtonIssue = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"issuetype-field\"]")));
-        dropDownButtonIssue.click();
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(createIssuePage.getIssueTypeField()));
+        createIssuePage.clickElement(createIssuePage.getIssueTypeField());
         try {
-            WebElement selectTask = main.getDriver().findElement(By.linkText("Task"));
-            selectTask.click();
+            createIssuePage.clickElement(createIssuePage.getFindTask());
         } catch (NoSuchElementException e) {
-            dropDownButtonIssue.click();
+            createIssuePage.clickElement(createIssuePage.getIssueTypeField());
         }
-        WebElement editSummary = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"summary\"]")));
-        editSummary.sendKeys("create issue");
-        WebElement clickCreateButton = main.getDriver().findElement(By.xpath("//*[@id=\"create-issue-submit\"]"));
-        clickCreateButton.click();
-        WebElement clickLink = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".issue-created-key.issue-link")));
-        clickLink.click();
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(createIssuePage.getSummaryField()));
+        createIssuePage.getSummaryField().sendKeys("create issue");
+        createIssuePage.clickElement(createIssuePage.getCreateIssueButton());
+
+        createIssuePage.clickElement(createIssuePage.getClickLink());
     }
 
     @Test
     public void createWithEmptyFields() {
-        WebElement createButton = main.getDriver().findElement(By.id("create_link"));
+        createIssuePage.clickElement(mainNavBar.getCreateButton());
 
-        createButton.click();
-        WebElement clickCreateButton = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"create-issue-submit\"]")));
-        clickCreateButton.click();
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"issuetype-single-select\"]/span")));
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(createIssuePage.getCreateIssueButton()));
+        createIssuePage.clickElement(createIssuePage.createIssueButton);
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(createIssuePage.getIssueTypeField()));
 
 
-        assertTrue(main.getDriver().findElement(By.xpath("//*[@id=\"create-issue-dialog\"]/div[2]/div[1]/div/form/div[1]/div[2]/div[1]/div")).isDisplayed());
+        assertTrue(createIssuePage.getErrorMessage().isDisplayed());
     }
 
     @Test
