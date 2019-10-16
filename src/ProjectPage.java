@@ -5,7 +5,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.concurrent.TimeUnit;
 
 public class ProjectPage {
 
@@ -36,19 +35,8 @@ public class ProjectPage {
 
     public boolean checkIfProjectHasIssueName(String url, String issueTypeName) {
         driver.navigate().to(url);
-
         wait.until(ExpectedConditions.visibilityOf(projectSettingHeader));
-        if (issueTypeName.equals(issueTypeMessageName.getText())) {
-            return true;
-        } else {
-            return false;
-        }
+        return issueTypeName.equals(issueTypeMessageName.getText());
 
     }
-
-    public String getIssueTypeMessageText() {
-
-        return issueTypeMessageName.getText();
-    }
-
 }
