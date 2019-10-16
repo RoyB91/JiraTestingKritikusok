@@ -1,26 +1,34 @@
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CreateIssuePage {
 
     private WebDriver driver;
     private MainNavBar mainNavBar;
+    private WebDriverWait webDriverWait;
     @FindBy(id = "project-field")
-    WebElement projectFieldButton;
+    private WebElement projectFieldButton;
     @FindBy(xpath = "//*[@id=\"issuetype-single-select\"]/span")
-    WebElement waitForIssueTypeFieldButton;
+    private WebElement waitForIssueTypeFieldButton;
     @FindBy(xpath = "//*[@id=\"issuetype-field\"]")
     private WebElement issueTypeField;
     @FindBy(id = "summary")
-    WebElement summaryField;
+    private WebElement summaryField;
     @FindBy(id = "create-issue-submit")
-    WebElement createIssueButton;
+    private WebElement createIssueButton;
     @FindBy(xpath = "//*[@id=\"project-field\"]")
-    WebElement fieldProjectName;
+    private WebElement fieldProjectName;
     @FindBy(id = "project-field")
     private WebElement valueTrue;
     @FindBy(id = "issuetype-field")
@@ -29,19 +37,69 @@ public class CreateIssuePage {
     private WebElement findMTP;
     @FindBy(linkText = "Task")
     private WebElement findTask;
-    @FindBy(className = "issue-created-key.issue-link")
+    @FindBy(css = ".issue-created-key.issue-link")
     private WebElement clickLink;
     @FindBy(className = "error")
     private WebElement errorMessage;
+    @FindBy(xpath = "//*[@id=\"opsbar-operations_more\"]/span")
+    private WebElement moreButton;
+    @FindBy(xpath = "//*[@id=\"create-subtask\"]/a/span")
+    private WebElement createSubTask;
+    @FindBy(css = ".stsummary")
+    private List<WebElement> summaries;
 
     CreateIssuePage(WebDriver driver) {
         this.driver = driver;
+        this.webDriverWait = new WebDriverWait(driver, 15);
         this.mainNavBar = new MainNavBar(driver);
         PageFactory.initElements(driver, this);
     }
 
-    public void clickElement(WebElement element) {
-        element.click();
+
+    public void clickTheCreateButton(){
+        mainNavBar.getCreateButton().click();
+    }
+
+    public void selectAProject(String project) {
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(projectFieldButton)).click();
+        projectFieldButton.sendKeys(project);
+        projectFieldButton.sendKeys(Keys.TAB);
+    }
+
+    public void selectAnIssue(String issueType) {
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(issueTypeField)).click();
+        issueTypeField.sendKeys(issueType);
+        issueTypeField.sendKeys(Keys.TAB);
+    }
+
+    public void fillTheSummaryField(String summary) {
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(summaryField)).click();
+        summaryField.sendKeys(summary);
+    }
+
+    public void clickTheCreateIssueButton(){
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(createIssueButton)).click();
+    }
+
+    public void clickTheCreatedIssueLink(){
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(clickLink)).click();
+    }
+
+    public void clickOnMoreButton(){
+        moreButton.click();
+    }
+
+    public void clickOnTheCreateSubTaskButton(){
+        createSubTask.click();
+    }
+
+    public void checkTheSubTask(){
+        for (int i = 0; i < summaries.size(); i++) {
+            if (summaries.get(i).getText().equals("text Subtask")) {
+                assertEquals(summaries.get(i).getText(), "text Subtask");
+                break;
+            }
+        }
     }
 
     public WebElement getProjectFieldButton() {
@@ -65,6 +123,7 @@ public class CreateIssuePage {
     }
 
     public String getFieldProjectName() {
+        webDriverWait.until(ExpectedConditions.visibilityOf(fieldProjectName));
         return fieldProjectName.getAttribute("value");
     }
 
@@ -89,6 +148,6 @@ public class CreateIssuePage {
     }
 
     public WebElement getErrorMessage() {
-        return errorMessage;
+        return webDriverWait.until(ExpectedConditions.visibilityOf(errorMessage));
     }
 }

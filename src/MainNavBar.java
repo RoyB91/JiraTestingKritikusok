@@ -12,6 +12,10 @@ public class MainNavBar {
     private WebElement profilePictureButton;
     @FindBy(id = "log_out")
     private WebElement logOutButton;
+    @FindBy(id = "browse_link")
+    private WebElement projectsButton;
+    @FindBy(id = "project_view_all_link_lnk")
+    private WebElement allProjects;
 
     MainNavBar(WebDriver driver) {
         this.driver = driver;
@@ -28,5 +32,13 @@ public class MainNavBar {
 
     public WebElement getLogOutButton() {
         return logOutButton;
+    }
+
+    public WebElement getProjectsButton() {
+        return projectsButton;
+    }
+
+    public WebElement getAllProjects() {
+        return allProjects;
     }
 }
