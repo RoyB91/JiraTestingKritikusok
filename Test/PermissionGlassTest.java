@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,6 +16,7 @@ public class PermissionGlassTest {
 
     private Main main = new Main();
     private ProjectPage projectPage = new ProjectPage(main.getDriver());
+    private GlassDocumentationPage glassDocumentationPage = new GlassDocumentationPage(main.getDriver());
 
     @BeforeEach
     public void setup() {
@@ -26,25 +29,16 @@ public class PermissionGlassTest {
         main.getDriver().quit();
     }
 
-    @Test
-    public void verifyPermission() {
-        projectPage.clickOnProjects();
-        projectPage.clickOnAllProjects();
-        projectPage.clickOnPrivateProject1();
-        projectPage.clickOnProjectSettings();
+    @ParameterizedTest
+    @CsvFileSource(resources = "resources/permissionType.csv", numLinesToSkip = 1)
+    public void verifyPermission(String url, String permissionType) {
+        main.getDriver().navigate().to(url);
         projectPage.clickOnPermissions();
         assertEquals(projectPage.getBrowseProjectPermissionProjectSettings(), "Any logged in user");
         assertEquals(projectPage.getCreateIssuesPermissionProjectSettings(), "Any logged in user");
         assertEquals(projectPage.getEditIssuesPermissionProjectSettings(), "Any logged in user");
-        WebElement glassDocumentation = main.getDriver().findElement(By.xpath("//*[@id=\"content\"]/div[1]/div/div[1]/nav/div/div[2]/ul/li[7]"));
-        glassDocumentation.click();
-        WebElement permissions2 = main.getDriver().findElement(By.xpath("//*[@id=\"glass-permissions-nav\"]/a"));
-        permissions2.click();
-        Boolean browseCheckMark = main.getDriver().findElement(By.xpath("//*[@id=\"glass-permissions-panel\"]/div/table/tbody/tr[5]/td[3]/div")).isDisplayed();
-        assertTrue(browseCheckMark);
-        Boolean createCheckMark = main.getDriver().findElement(By.xpath("//*[@id=\"glass-permissions-panel\"]/div/table/tbody/tr[8]/td[3]/div\n")).isDisplayed();
-        assertTrue(createCheckMark);
-        Boolean editCheckMark = main.getDriver().findElement(By.xpath("//*[@id=\"glass-permissions-panel\"]/div/table/tbody/tr[18]/td[3]/div")).isDisplayed();
-        assertTrue(editCheckMark);
+        glassDocumentationPage.goToGlassDocumentationPage();
+        glassDocumentationPage.goToPermissions();
+        assertTrue(glassDocumentationPage.getCheckMark(permissionType));
     }
 }
