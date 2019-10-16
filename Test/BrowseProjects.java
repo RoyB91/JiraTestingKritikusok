@@ -25,7 +25,7 @@ public class BrowseProjects {
 
     @AfterEach
     public void close() {
-        driver.close();
+        driver.quit();
 
     }
 

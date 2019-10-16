@@ -30,7 +30,7 @@ public class CreateIssue {
 
     @AfterEach
     public void close() {
-        main.getDriver().close();
+        main.getDriver().quit();
     }
 
     @ParameterizedTest(name = "{index} => projectName={0}")
