@@ -11,7 +11,8 @@ import java.util.concurrent.TimeUnit;
 class EditIssuePage {
 
     private WebDriver driver;
-
+    private IssuePage issuePage;
+    private WebDriverWait wait;
 
     @FindBy(id = "summary")
     private WebElement summaryField;
@@ -29,34 +30,53 @@ class EditIssuePage {
     private WebElement errorField;
 
 
-    EditIssuePage(WebDriver driver) {
+    EditIssuePage(WebDriver driver, IssuePage issuePage) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, 15);
+        this.issuePage = issuePage;
         PageFactory.initElements(driver, this);
     }
 
-    public void click(WebElement element) {
-        element.click();
+    public void clearSummaryText() {
+        getSummaryField().clear();
     }
 
-    public void fillText(WebElement element, String text) {
-        element.sendKeys(text);
+    public void pressCancelAndConfirm() {
+        getCancelButton().click();
+
+        driver.switchTo().alert().accept();
+
     }
 
-    public void clearField(WebElement element) {
-        element.clear();
+    public void fillSummaryText(String text) {
+        getSummaryField().clear();
+        getSummaryField().sendKeys(text);
     }
+
+    public void pressUpdateButton() {
+        getUpdateButton().click();
+        wait.until(ExpectedConditions.visibilityOf(issuePage.getAlertPopUp()));
+    }
+
+    public void pressUpdateWithEmptyFields() {
+        getSummaryField().clear();
+        getUpdateButton().click();
+        wait.until(ExpectedConditions.visibilityOf(getErrorField()));
+
+    }
+
 
     public void resetIssueSummary(WebDriver driver, String url, String defaultTestText) {
         WebDriverWait wait = new WebDriverWait(driver, 15);
         IssuePage issuePage = new IssuePage(driver);
         driver.navigate().to(url);
-        click(issuePage.getEditIssueButton());
+        issuePage.getEditIssueButton().click();
         wait.until(ExpectedConditions.visibilityOf(getJiraDialogContent()));
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        clearField(summaryField);
-        fillText(summaryField, defaultTestText);
-        click(updateButton);
+        summaryField.clear();
+        summaryField.sendKeys(defaultTestText);
+        updateButton.click();
     }
 
     public WebElement getSummaryField() {

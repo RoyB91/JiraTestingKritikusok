@@ -14,15 +14,14 @@ class EditIssueTest {
 
     private Main main = new Main();
     private WebDriver driver = main.getDriver();
-    private WebDriverWait wait = new WebDriverWait(driver, 15);
     private EditIssuePage editIssuePage;
-    private IssuePage issuePage;
+    private IssuePage issuePage = new IssuePage(driver);
 
 
     @BeforeEach
     public void setup() {
-        editIssuePage = new EditIssuePage(driver);
-        issuePage = new IssuePage(driver);
+        editIssuePage = new EditIssuePage(driver, issuePage);
+
         main.loginWithValidData();
         driver.manage().window().maximize();
 
@@ -37,18 +36,11 @@ class EditIssueTest {
     @CsvFileSource(resources = "resources/editIssueDataTest.csv", numLinesToSkip = 4)
     public void editMTPIssues(String url, String failMessage, String editMessage, String expected) {
         driver.navigate().to(url);
-        issuePage.click(issuePage.getEditIssueButton());
-
-        wait.until(ExpectedConditions.visibilityOf(editIssuePage.getJiraDialogContent()));
-
-        editIssuePage.clearField(editIssuePage.getSummaryField());
-        editIssuePage.fillText(editIssuePage.getSummaryField(), editMessage);
-        editIssuePage.click(editIssuePage.getUpdateButton());
-
-        wait.until(ExpectedConditions.visibilityOf(issuePage.getAlertPopUp()));
+        issuePage.clickEditIssueButton();
+        editIssuePage.fillSummaryText(editMessage);
+        editIssuePage.pressUpdateButton();
         assertEquals(expected, issuePage.getIssueSummaryNameText());
 
-        //ask this ,Where/when should i rewrite this.
         editIssuePage.resetIssueSummary(driver, url, issuePage.getDefaultSummaryText());
     }
 
@@ -56,13 +48,7 @@ class EditIssueTest {
     @CsvFileSource(resources = "resources/editIssueDataTest.csv", numLinesToSkip = 1)
     public void checkPermissionToEditIssue(String url, String failMessage) {
         driver.navigate().to(url);
-        try {
-            assertTrue(issuePage.getEditIssueButton().isDisplayed());
-        } catch (ElementNotVisibleException | NoSuchElementException e) {
-            fail(failMessage);
-        } finally {
-            driver.quit();
-        }
+        assertTrue(issuePage.isEditIssueButtonIsThere(), failMessage);
     }
 
 
@@ -70,31 +56,20 @@ class EditIssueTest {
     @CsvFileSource(resources = "resources/editIssueDataTest.csv", numLinesToSkip = 4)
     public void updateIssueWithEmptySummary(String url) {
         driver.navigate().to(url);
-
-        issuePage.click(issuePage.getEditIssueButton());
-
-        wait.until(ExpectedConditions.visibilityOf(editIssuePage.getJiraDialogContent()));
-        editIssuePage.clearField(editIssuePage.getSummaryField());
-        editIssuePage.click(editIssuePage.getUpdateButton());
-
-        wait.until(ExpectedConditions.visibilityOf(editIssuePage.getErrorField()));
+        issuePage.clickEditIssueButton();
+        editIssuePage.pressUpdateWithEmptyFields();
 
         assertTrue(editIssuePage.getErrorField().isDisplayed());
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "resources/editIssueDataTest.csv", numLinesToSkip = 4)
-    public void cancelNotSaveEditIssue(String url,String failMessage,String editMessage) {
+    public void cancelNotSaveEditIssue(String url, String failMessage, String editMessage) {
         driver.navigate().to(url);
-        issuePage.click(issuePage.getEditIssueButton());
-
-        wait.until(ExpectedConditions.visibilityOf(editIssuePage.getJiraDialogContent()));
-        editIssuePage.clearField(editIssuePage.getSummaryField());
-        editIssuePage.fillText(editIssuePage.getSummaryField(), editMessage);
-        editIssuePage.click(editIssuePage.getCancelButton());
-
-        driver.switchTo().alert().accept();
-
+        issuePage.clickEditIssueButton();
+        editIssuePage.clearSummaryText();
+        editIssuePage.fillSummaryText(editMessage);
+        editIssuePage.pressCancelAndConfirm();
         assertEquals(issuePage.getDefaultSummaryText(), issuePage.getIssueSummaryNameText());
     }
 
