@@ -1,86 +1,89 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BrowseProjectsPage {
 
-    public WebElement getProjectsButton(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"browse_link\"]"));
-    }
-
-    public WebElement getViewAllProjectsButton(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"project_view_all_link_lnk\"]"));
-
-    }
+    private WebDriver driver;
+    private WebDriverWait wait;
 
 
-    public WebElement getCoalaProject(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"projects\"]/div/table/tbody/tr[2]/td[1]/a"));
-    }
-
-    public WebElement getCoalaNameDisplayed(WebDriver driver) {
-
-        return driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div/div[1]/header/div/div[2]/h1/div/div/a"));
-    }
-
-    public WebElement getCoalaAvatarDisplayed(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div/div[1]/header/div/div[1]/a/span/span/img"));
-    }
-
-    public WebElement getBusinessProjects(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"project_type_business_lnk\"]"));
-    }
-
-    public WebElement getToucanProject(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"projects\"]/div/table/tbody/tr[3]/td[1]/a"));
-    }
-
-    public WebElement getToucanName(WebDriver driver) {
-
-        return driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div/div[1]/header/div/div[2]/h1/div/div/a"));
-    }
-
-    public WebElement getToucanAvatar(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div/div[1]/header/div/div[1]/a/span/span/img"));
-    }
-
-    public WebElement getCoalaSummary(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div/div[1]/nav/div/div[1]/ul/li[1]/a/span[2]"));
-    }
-
-    public WebElement getCoalaActivity(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"summary-subnav-title\"]/span"));
+    BrowseProjectsPage(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, 15);
+        PageFactory.initElements(driver, this);
 
     }
 
-    public WebElement getToucanSummary(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div/div[1]/nav/div/div[1]/ul/li[1]/a/span[2]"));
+    public WebElement projectActivity() {
+        return driver.findElement(By.xpath("//*[@title='Activity']"));
 
     }
 
-    public WebElement getToucanActivity(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"summary-subnav-title\"]/span"));
+    public WebElement projectSummary(String projectName) {
+        return driver.findElement(By.xpath("//a[@href='/projects/" + projectName + "/summary']"));
 
     }
 
-    public WebElement getToucanProjectFromAllProjects(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"projects\"]/div/table/tbody/tr[16]/td[1]/a"));
+    public WebElement browseProject(String projectName) {
+        if (projectName.equals("TOUCAN"))
+            return driver.findElement(By.linkText(projectName + " projekt"));
+
+        return driver.findElement(By.linkText(projectName + " Project"));
 
     }
 
-    public WebElement getJetiProjectFromAllProjects(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"projects\"]/div/table/tbody/tr[5]/td[1]/a"));
+    public void clickProjectSummary(String project) {
+        projectSummary(project).click();
+        wait.until(ExpectedConditions.visibilityOf(projectActivity()));
 
     }
 
-    public WebElement getJetiSummary(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div/div[1]/nav/div/div[1]/ul/li[1]/a/span[2]"));
+
+    public void clickProjectsDropdown() {
+        getProjectsButton().click();
+        wait.until(ExpectedConditions.elementToBeClickable(getViewAllProjectsButton()));
 
     }
 
-    public WebElement getJetiActivity(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"summary-subnav-title\"]/span"));
+    public void clickViewAllProjects(String project) {
+        getViewAllProjectsButton().click();
+        wait.until(ExpectedConditions.elementToBeClickable(browseProject(project)));
 
     }
+
+    public void clickGivenProject(String project) {
+        browseProject(project).click();
+        wait.until(ExpectedConditions.visibilityOf(browseProject(project)));
+
+    }
+
+    public void clickBusinessProjects(String project) {
+        getBusinessProjects().click();
+        wait.until(ExpectedConditions.elementToBeClickable(browseProject(project)));
+
+    }
+
+    @FindBy(id = "browse_link") private WebElement projectsButton;
+
+    @FindBy(id = "project_view_all_link_lnk") private WebElement viewAllProjectsButton;
+
+    @FindBy(id = "project_type_business_lnk") private WebElement businessProjects;
+
+    public WebElement getProjectsButton() {
+        return projectsButton;
+    }
+
+    public WebElement getViewAllProjectsButton() { return viewAllProjectsButton; }
+
+    public WebElement getBusinessProjects() {
+        return businessProjects;
+    }
+
+
 
 }
