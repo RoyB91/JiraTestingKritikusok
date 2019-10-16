@@ -1,9 +1,8 @@
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
@@ -14,38 +13,34 @@ class CreateComponentTestWithGlass {
     private Main main = new Main();
     private WebDriver driver = main.getDriver();
     private WebDriverWait wait = new WebDriverWait(driver, 15);
-    private EditIssuePage editIssuePage = new EditIssuePage();
-    private GlassComponent glassComponent = new GlassComponent();
+
+    private ComponentPage componentPage;
+    private GlassDocumentationPage glassDocumentationPage;
 
     @BeforeEach
     public void setup() {
         main.loginWithValidData();
         driver.manage().window().maximize();
+        componentPage = new ComponentPage(driver);
+        glassDocumentationPage = new GlassDocumentationPage(driver);
 
     }
-
-    @Test
-    public void createCompAndCheckWithGlass() {
-        driver.navigate().to("https://jira.codecool.codecanvas.hu/projects/PP1?selectedItem=com.atlassian.jira.jira-projects-plugin:components-page");
-        WebElement inputFieldCompName = driver.findElement(By.xpath("//*[@id=\"components-add__component\"]/div[1]/input"));
-        inputFieldCompName.sendKeys("Kritikus komponens");
-
-        WebElement assigneeField = driver.findElement(By.xpath("//*[@id=\"assigneeType-field\"]"));
-        assigneeField.sendKeys("Unassigned");
-        assigneeField.sendKeys(Keys.ENTER);
-        driver.findElement(By.xpath("//*[@id=\"components-add__component\"]/div[5]/button")).click();
-
-
-        driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div/div[1]/nav/div/div[2]/ul/li[7]/a/span[1]")).click();
-
-
-        WebElement table = driver.findElement(By.xpath("//*[@id=\"components-table\"]")).findElement(By.className("items"));
-
-
-        String compName = table.findElement(By.xpath("//*[contains(text(), 'Kritikus komponens')]")).getAttribute("innerText");
-        assertEquals("Kritikus komponens", compName);
-        glassComponent.deleteComponent(driver, "https://jira.codecool.codecanvas.hu/projects/PP1?selectedItem=com.atlassian.jira.jira-projects-plugin:components-page", "Kritikus komponens");
+    @AfterEach
+    public void close(){
         driver.quit();
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "resources/createCompDataTest.csv", numLinesToSkip = 1)
+    public void createCompAndCheckWithGlass(String url, String compName, String assignee) {
+        driver.navigate().to(url);
+
+        componentPage.createComponent(compName,assignee);
+        glassDocumentationPage.goToGlassDocumentationPage();
+
+        assertEquals(compName, glassDocumentationPage.testComponentName());
+
+        componentPage.deleteComponent(driver, url);
     }
 
 }

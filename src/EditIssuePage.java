@@ -1,46 +1,100 @@
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
 class EditIssuePage {
 
-    private WebElement editButton;
+    private WebDriver driver;
+    private IssuePage issuePage;
+    private WebDriverWait wait;
+
+    @FindBy(id = "summary")
     private WebElement summaryField;
+
+    @FindBy(id = "edit-issue-submit")
     private WebElement updateButton;
-    private WebElement issueSummaryName;
+
+    @FindBy(xpath = "//*[@class='cancel']")
     private WebElement cancelButton;
 
+    @FindBy(className = "jira-dialog-content")
+    private WebElement jiraDialogContent;
+
+    @FindBy(className = "error")
+    private WebElement errorField;
+
+
+    EditIssuePage(WebDriver driver, IssuePage issuePage) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, 15);
+        this.issuePage = issuePage;
+        PageFactory.initElements(driver, this);
+    }
+
+    public void clearSummaryText() {
+        getSummaryField().clear();
+    }
+
+    public void pressCancelAndConfirm() {
+        getCancelButton().click();
+
+        driver.switchTo().alert().accept();
+
+    }
+
+    public void fillSummaryText(String text) {
+        getSummaryField().clear();
+        getSummaryField().sendKeys(text);
+    }
+
+    public void pressUpdateButton() {
+        getUpdateButton().click();
+        wait.until(ExpectedConditions.visibilityOf(issuePage.getAlertPopUp()));
+    }
+
+    public void pressUpdateWithEmptyFields() {
+        getSummaryField().clear();
+        getUpdateButton().click();
+        wait.until(ExpectedConditions.visibilityOf(getErrorField()));
+
+    }
+
+
     public void resetIssueSummary(WebDriver driver, String url, String defaultTestText) {
+        WebDriverWait wait = new WebDriverWait(driver, 15);
+        IssuePage issuePage = new IssuePage(driver);
         driver.navigate().to(url);
-        editButton = driver.findElement(By.xpath("//*[@id=\"edit-issue\"]/span[2]"));
-        editButton.click();
+        issuePage.getEditIssueButton().click();
+        wait.until(ExpectedConditions.visibilityOf(getJiraDialogContent()));
+
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        summaryField = driver.findElement(By.xpath("//*[@id=\"summary\"]"));
         summaryField.clear();
         summaryField.sendKeys(defaultTestText);
-        updateButton = driver.findElement(By.xpath("//*[@id=\"edit-issue-submit\"]"));
         updateButton.click();
     }
 
-    public WebElement getEditButton(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"edit-issue\"]/span[2]"));
+    public WebElement getSummaryField() {
+        return summaryField;
     }
 
-    public WebElement getSummaryField(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"summary\"]"));
+    public WebElement getUpdateButton() {
+        return updateButton;
     }
 
-    public WebElement getUpdateButton(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"edit-issue-submit\"]"));
+    public WebElement getJiraDialogContent() {
+        return jiraDialogContent;
     }
 
-    public String getIssueSummaryName(WebDriver driver) {
-        return driver.findElement(By.xpath("//*[@id=\"summary-val\"]")).getText();
+    public WebElement getErrorField() {
+        return errorField;
     }
 
-    public WebElement getCancelButton(WebDriver driver) {
-        return driver.findElement(By.cssSelector("#edit-issue-dialog > div.jira-dialog-content > div.qf-container > div > form > div.buttons-container.form-footer > div > a"));
+    public WebElement getCancelButton() {
+        return cancelButton;
     }
 }
