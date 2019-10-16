@@ -35,18 +35,6 @@ public class ComponentPage {
         PageFactory.initElements(driver, this);
     }
 
-//    public void click(WebElement element) {
-//        element.click();
-//    }
-//
-//    public void fillText(WebElement element, String text) {
-//        element.sendKeys(text);
-//    }
-//
-//    public void enterKeys(WebElement element, Keys key) {
-//        element.sendKeys(key);
-//    }
-
     public void deleteComponent(WebDriver driver, String url) {
 
         driver.navigate().to(url);
