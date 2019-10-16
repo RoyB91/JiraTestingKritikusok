@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PermissionGlassTest {
 
     private Main main = new Main();
-    private PermissionGlassSrc permissionGlassSrc = new PermissionGlassSrc(main.getDriver());
+    private ProjectPage projectPage = new ProjectPage(main.getDriver());
 
     @BeforeEach
     public void setup() {
@@ -28,14 +28,14 @@ public class PermissionGlassTest {
 
     @Test
     public void verifyPermission() {
-        permissionGlassSrc.clickOnProjects();
-        permissionGlassSrc.clickOnAllProjects();
-        permissionGlassSrc.clickOnPrivateProject1();
-        permissionGlassSrc.clickOnProjectSettings();
-        permissionGlassSrc.clickOnPermissions();
-        assertEquals(permissionGlassSrc.getBrowseProjectPermissionProjectSettings(), "Any logged in user");
-        assertEquals(permissionGlassSrc.getCreateIssuesPermissionProjectSettings(), "Any logged in user");
-        assertEquals(permissionGlassSrc.getEditIssuesPermissionProjectSettings(), "Any logged in user");
+        projectPage.clickOnProjects();
+        projectPage.clickOnAllProjects();
+        projectPage.clickOnPrivateProject1();
+        projectPage.clickOnProjectSettings();
+        projectPage.clickOnPermissions();
+        assertEquals(projectPage.getBrowseProjectPermissionProjectSettings(), "Any logged in user");
+        assertEquals(projectPage.getCreateIssuesPermissionProjectSettings(), "Any logged in user");
+        assertEquals(projectPage.getEditIssuesPermissionProjectSettings(), "Any logged in user");
         WebElement glassDocumentation = main.getDriver().findElement(By.xpath("//*[@id=\"content\"]/div[1]/div/div[1]/nav/div/div[2]/ul/li[7]"));
         glassDocumentation.click();
         WebElement permissions2 = main.getDriver().findElement(By.xpath("//*[@id=\"glass-permissions-nav\"]/a"));
