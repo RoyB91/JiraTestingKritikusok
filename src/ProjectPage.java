@@ -1,3 +1,4 @@
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -33,12 +34,7 @@ public class ProjectPage {
     @FindBy(id = "view_project_permissions")
     private WebElement permissions;
 
-    @FindBy(xpath = "//tr[@data-permission-key='BROWSE_PROJECTS']//following-sibling::dd")
-    private WebElement browseProjectPermissionProjectSettings;
-    @FindBy(xpath = "//tr[@data-permission-key='CREATE_ISSUES']//following-sibling::dd")
-    private WebElement createIssuesPermissionProjectSettings;
-    @FindBy(xpath = "//tr[@data-permission-key='EDIT_ISSUES']//following-sibling::dd")
-    private WebElement editIssuesPermissionProjectSettings;
+    private WebElement permissionText;
 
 
     ProjectPage(WebDriver driver) {
@@ -55,6 +51,11 @@ public class ProjectPage {
         wait.until(ExpectedConditions.visibilityOf(projectSettingHeader));
         return issueTypeName.equals(issueTypeMessageName.getText());
 
+    }
+
+    public String permissionMatrix(String permissionType) {
+        permissionText = driver.findElement(By.xpath("//tr[@data-permission-key='" + permissionType + "']//following-sibling::dd"));
+        return permissionText.getText();
     }
 
 
@@ -77,17 +78,5 @@ public class ProjectPage {
 
     public void clickOnPermissions() {
         permissions.click();
-    }
-
-    public String getBrowseProjectPermissionProjectSettings() {
-        return browseProjectPermissionProjectSettings.getText();
-    }
-
-    public String getCreateIssuesPermissionProjectSettings() {
-        return createIssuesPermissionProjectSettings.getText();
-    }
-
-    public String getEditIssuesPermissionProjectSettings() {
-        return editIssuesPermissionProjectSettings.getText();
     }
 }

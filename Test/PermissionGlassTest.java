@@ -31,12 +31,10 @@ public class PermissionGlassTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "resources/permissionType.csv", numLinesToSkip = 1)
-    public void verifyPermission(String url, String permissionType) {
+    public void verifyPermission(String url, String permissionType, String projectPermissionType) {
         main.getDriver().navigate().to(url);
         projectPage.clickOnPermissions();
-        assertEquals(projectPage.getBrowseProjectPermissionProjectSettings(), "Any logged in user");
-        assertEquals(projectPage.getCreateIssuesPermissionProjectSettings(), "Any logged in user");
-        assertEquals(projectPage.getEditIssuesPermissionProjectSettings(), "Any logged in user");
+        assertEquals(projectPage.permissionMatrix(projectPermissionType), "Any logged in user");
         glassDocumentationPage.goToGlassDocumentationPage();
         glassDocumentationPage.goToPermissions();
         assertTrue(glassDocumentationPage.getCheckMark(permissionType));
