@@ -36,8 +36,9 @@ class CreateComponentTestWithGlass {
     @CsvFileSource(resources = "resources/createCompDataTest.csv", numLinesToSkip = 1)
     public void createCompAndCheckWithGlass(String url, String compName, String assignee) {
         driver.navigate().to(url);
+
         componentPage.createComponent(compName,assignee);
-        componentPage.goToGlassDocumentationPage();
+        glassDocumentationPage.goToGlassDocumentationPage();
 
         assertEquals(compName, glassDocumentationPage.testComponentName());
 
