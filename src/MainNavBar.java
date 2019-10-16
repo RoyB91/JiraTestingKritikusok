@@ -17,6 +17,12 @@ public class MainNavBar {
     @FindBy(id = "project_view_all_link_lnk")
     private WebElement allProjects;
 
+    @FindBy(className = "aui-nav-link login-link")
+    private WebElement logInButton;
+
+    @FindBy(xpath = "//*[text()='You are now logged out. Any automatic login has also been stopped.']")
+    private WebElement logoutMessage;
+
     MainNavBar(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -40,5 +46,18 @@ public class MainNavBar {
 
     public WebElement getAllProjects() {
         return allProjects;
+    }
+
+    public WebElement getLogInButton() {
+        return logInButton;
+    }
+
+    public void logout() {
+        profilePictureButton.click();
+        logOutButton.click();
+    }
+
+    public WebElement getLogoutMessage() {
+        return logoutMessage;
     }
 }
