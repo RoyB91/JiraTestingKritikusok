@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class BrowseIssueSrc {
+public class BrowseIssuePage {
 
     private WebDriver driver;
     private WebDriverWait webDriverWait;
@@ -25,7 +25,7 @@ public class BrowseIssueSrc {
     @FindBy(id = "summary-val")
     private WebElement issueTitleText;
 
-    BrowseIssueSrc(WebDriver driver){
+    BrowseIssuePage(WebDriver driver){
         this.driver = driver;
         this.webDriverWait = new WebDriverWait(driver, 15);
         PageFactory.initElements(driver, this);

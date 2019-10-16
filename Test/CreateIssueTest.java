@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CreateIssue {
+public class CreateIssueTest {
 
     private Main main = new Main();
     private CreateIssuePage createIssuePage = new CreateIssuePage(main.getDriver());

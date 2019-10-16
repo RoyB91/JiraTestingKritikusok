@@ -3,7 +3,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import org.openqa.selenium.By;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,7 +11,7 @@ import java.awt.*;
 public class BrowseIssueTest {
 
     private Main main = new Main();
-    private BrowseIssueSrc browseIssueSrc = new BrowseIssueSrc(main.getDriver());
+    private BrowseIssuePage browseIssuePage = new BrowseIssuePage(main.getDriver());
 
     @BeforeEach
     public void setup() {
@@ -27,24 +26,24 @@ public class BrowseIssueTest {
 
     @Test
     public void detailsOfTasks() {
-        browseIssueSrc.detailsOfTasks(main.getDriver());
+        browseIssuePage.detailsOfTasks(main.getDriver());
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "resources/browseIssue.csv", numLinesToSkip = 1)
     public void projectJetiContainsIssue(String projectname) {
-        browseIssueSrc.navigateToAnIssue(main.getDriver(), projectname);
-        assertTrue(browseIssueSrc.issueTitleIsDisplayed());
+        browseIssuePage.navigateToAnIssue(main.getDriver(), projectname);
+        assertTrue(browseIssuePage.issueTitleIsDisplayed());
     }
 
 
     @Test
     public void browseExistingIssue() throws AWTException {
-        browseIssueSrc.navigateTo();
-        browseIssueSrc.selectProject();
-        browseIssueSrc.setSelectPp1();
-        browseIssueSrc.clickOnProjectAgain();
-        browseIssueSrc.rightClickOnIssue();
-        assertTrue(browseIssueSrc.issueTitleIsDisplayed());
+        browseIssuePage.navigateTo();
+        browseIssuePage.selectProject();
+        browseIssuePage.setSelectPp1();
+        browseIssuePage.clickOnProjectAgain();
+        browseIssuePage.rightClickOnIssue();
+        assertTrue(browseIssuePage.issueTitleIsDisplayed());
     }
 }
