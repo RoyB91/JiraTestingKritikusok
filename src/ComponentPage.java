@@ -26,10 +26,6 @@ public class ComponentPage {
     @FindBy(xpath = "//*[@id='components-table']//*[text()='Kritikus komponens']")
     private WebElement testComponent;
 
-
-    @FindBy(css = "[data-link-id='com.codecanvas.glass:glass']")
-    private WebElement glassDocumentationButton;
-
     ComponentPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -67,13 +63,6 @@ public class ComponentPage {
         return addButton;
     }
 
-    public WebElement getGlassDocumentationButton() {
-        return glassDocumentationButton;
-    }
-
-    public void goToGlassDocumentationPage() {
-        glassDocumentationButton.click();
-    }
 
     public void createComponent(String compName, String assignee) {
 
