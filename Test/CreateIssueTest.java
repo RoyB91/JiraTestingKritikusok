@@ -27,7 +27,9 @@ public class CreateIssueTest {
 
     @BeforeEach
     public void setup() {
+
         main.getDriver().manage().window().maximize();
+
         loginPage.loginWithValidData();
     }
 
@@ -88,6 +90,7 @@ public class CreateIssueTest {
 
         //CheckBugType
         createIssuePage.selectAnIssue(issueType);
+        assertEquals(projectName, createIssuePage.getFieldProjectName());
         assertEquals(issueType, createIssuePage.getFieldIssueTypeName());
     }
 }
