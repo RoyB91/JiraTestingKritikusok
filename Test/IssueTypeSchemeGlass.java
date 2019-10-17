@@ -14,11 +14,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class IssueTypeSchemeGlass {
 
     private Main main = new Main();
+    private WebDriver driver = main.getDriver();
     private WebDriverWait webDriverWait = new WebDriverWait(main.getDriver(), 15);
+    private LoginPage loginPage = new LoginPage(driver);
 
     @BeforeEach
     public void setup() {
-        main.loginWithValidData();
+        loginPage.loginWithValidData();
         main.getDriver().manage().window().maximize();
     }
 
