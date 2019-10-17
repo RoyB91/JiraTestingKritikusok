@@ -78,7 +78,7 @@ public class CreateIssueTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "resources/changeIssueTypes.csv", numLinesToSkip = 1)
-    public void selectIssueType(String projectName, String issueType1, String issueType2, String issueType3) {
+    public void selectIssueType(String projectName, String issueType) {
 
         createIssuePage.clickTheCreateButton();
         createIssuePage.selectAProject(projectName);
@@ -87,16 +87,7 @@ public class CreateIssueTest {
 
 
         //CheckBugType
-        createIssuePage.selectAnIssue(issueType1);
-        assertEquals("Bug", createIssuePage.getFieldIssueTypeName());
-
-        //CheckTaskType
-        createIssuePage.selectAnIssue(issueType2);
-        assertEquals("Task", createIssuePage.getFieldIssueTypeName());
-
-        //CheckStoryType
-        createIssuePage.selectAnIssue(issueType3);
-        assertEquals("Story", createIssuePage.getFieldIssueTypeName());
-
+        createIssuePage.selectAnIssue(issueType);
+        assertEquals(issueType, createIssuePage.getFieldIssueTypeName());
     }
 }
