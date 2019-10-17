@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.*;
@@ -13,7 +16,7 @@ public class BrowseIssueTest {
     private Main main = new Main();
     private WebDriver driver = main.getDriver();
     private LoginPage loginPage = new LoginPage(driver);
-    private BrowseIssueSrc browseIssueSrc = new BrowseIssueSrc();
+    private BrowseIssuePage browseIssuePage = new BrowseIssuePage(main.getDriver());
 
     @BeforeEach
     public void setup(){
@@ -22,38 +25,30 @@ public class BrowseIssueTest {
     }
 
     @AfterEach
-    public void close(){
+    public void close() {
         main.getDriver().quit();
     }
 
     @Test
-    public void detailsOfTasks(){
-        browseIssueSrc.detailsOfTasks(main.getDriver());
+    public void detailsOfTasks() {
+        browseIssuePage.detailsOfTasks(main.getDriver());
     }
 
-    @Test
-    public void projectJetiContainsIssue(){
-        browseIssueSrc.projectJetiContainsIssue(main.getDriver(), "JETI-2");
-        String errorMessage = main.getDriver().findElement(By.xpath("//*[@id=\"summary-val\"]\n")).getText();
-        assertEquals(errorMessage, "Story");
+    @ParameterizedTest
+    @CsvFileSource(resources = "resources/browseIssue.csv", numLinesToSkip = 1)
+    public void projectJetiContainsIssue(String projectname) {
+        browseIssuePage.navigateToAnIssue(main.getDriver(), projectname);
+        assertTrue(browseIssuePage.issueTitleIsDisplayed());
     }
 
-    @Test
-    public void projectCoalaContainsIssue(){
-        browseIssueSrc.projectCoalaContainsIssue(main.getDriver(), "COALA-2");
-        String errorMessage = main.getDriver().findElement(By.xpath("//*[@id=\"issue-content\"]/div/div/h1")).getText();
-        assertEquals(errorMessage, "You can't view this issue");
-    }
-
-    @Test
-    public void projectToucanContainsIssue(){
-        browseIssueSrc.projectToucanContainsIssue(main.getDriver(), "TOUCAN-2");
-        String errorMessage = main.getDriver().findElement(By.xpath("//*[@id=\"issue-content\"]/div/div/h1")).getText();
-        assertEquals(errorMessage, "You can't view this issue");
-    }
 
     @Test
     public void browseExistingIssue() throws AWTException {
-        browseIssueSrc.browseExistingIssue(main.getDriver());
+        browseIssuePage.navigateTo();
+        browseIssuePage.selectProject();
+        browseIssuePage.setSelectPp1();
+        browseIssuePage.clickOnProjectAgain();
+        browseIssuePage.rightClickOnIssue();
+        assertTrue(browseIssuePage.issueTitleIsDisplayed());
     }
 }

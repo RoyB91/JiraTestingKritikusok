@@ -1,7 +1,12 @@
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WebDriver;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class LogoutTest {
@@ -9,15 +14,23 @@ class LogoutTest {
     private Main main = new Main();
     private WebDriver driver = main.getDriver();
     private LoginPage loginPage = new LoginPage(driver);
+    private MainNavBar mainNavBar = new MainNavBar(driver);
+
+    @BeforeEach
+    public void login() {
+        driver.manage().window().maximize();
+        loginPage.loginWithValidData();
+    }
+
+    @AfterEach
+    public void close() {
+        driver.quit();
+    }
 
     @Test
     public void logoutJira() {
-        loginPage.loginWithValidData();
-        WebElement avatarPicture = main.getDriver().findElement(By.xpath("//*[@id=\"header-details-user-fullname\"]/span/span"));
-        avatarPicture.click();
-
-        WebElement logoutOption = main.getDriver().findElement(By.xpath("//*[@id=\"log_out\"]"));
-        logoutOption.click();
+        mainNavBar.logout();
+        assertTrue(mainNavBar.getLogoutMessage().isDisplayed());
         main.getDriver().quit();
     }
 

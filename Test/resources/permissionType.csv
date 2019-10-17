@@ -1,0 +1,4 @@
+url                                                                           ,permissionType ,projectPermissionType
+https://jira.codecool.codecanvas.hu/plugins/servlet/project-config/PP1/summary,Browse Projects,BROWSE_PROJECTS
+https://jira.codecool.codecanvas.hu/plugins/servlet/project-config/PP1/summary,Create Issues  ,CREATE_ISSUES
+https://jira.codecool.codecanvas.hu/plugins/servlet/project-config/PP1/summary,Edit Issues    ,EDIT_ISSUES

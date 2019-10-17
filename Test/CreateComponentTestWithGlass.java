@@ -1,8 +1,7 @@
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -27,24 +26,22 @@ class CreateComponentTestWithGlass {
         glassDocumentationPage = new GlassDocumentationPage(driver);
 
     }
+    @AfterEach
+    public void close(){
+        driver.quit();
+    }
 
     @ParameterizedTest
     @CsvFileSource(resources = "resources/createCompDataTest.csv", numLinesToSkip = 1)
     public void createCompAndCheckWithGlass(String url, String compName, String assignee) {
         driver.navigate().to(url);
 
-        componentPage.fillText(componentPage.getComponentFieldName(), compName);
-        componentPage.fillText(componentPage.getAssigneeField(), assignee);
-        componentPage.enterKeys(componentPage.getAssigneeField(), Keys.ENTER);
-
-        componentPage.click(componentPage.getAddButton());
-        componentPage.click(componentPage.getGlassDocumentationButton());
+        componentPage.createComponent(compName,assignee);
+        glassDocumentationPage.goToGlassDocumentationPage();
 
         assertEquals(compName, glassDocumentationPage.testComponentName());
+
         componentPage.deleteComponent(driver, url);
-
-
-        driver.quit();
     }
 
 }

@@ -26,25 +26,9 @@ public class ComponentPage {
     @FindBy(xpath = "//*[@id='components-table']//*[text()='Kritikus komponens']")
     private WebElement testComponent;
 
-
-    @FindBy(css = "[data-link-id='com.codecanvas.glass:glass']")
-    private WebElement glassDocumentationButton;
-
     ComponentPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-    }
-
-    public void click(WebElement element) {
-        element.click();
-    }
-
-    public void fillText(WebElement element, String text) {
-        element.sendKeys(text);
-    }
-
-    public void enterKeys(WebElement element, Keys key) {
-        element.sendKeys(key);
     }
 
     public void deleteComponent(WebDriver driver, String url) {
@@ -54,15 +38,14 @@ public class ComponentPage {
         WebElement parentElement = testComponent.findElement(By.xpath("../../.."));
         String id = parentElement.getAttribute("data-component-id");
 
-        WebElement dropShit = parentElement.findElement(By.className("dynamic-table__actions")).findElement(By.partialLinkText("Operation"));
-        dropShit.click();
+        WebElement dropDown = parentElement.findElement(By.className("dynamic-table__actions")).findElement(By.partialLinkText("Operation"));
+        dropDown.click();
 
-        WebElement deleteButton = dropShit.findElement(By.xpath("//*[@id=\"deletecomponent_" + id + "\"]"));
-
+        WebElement deleteButton = dropDown.findElement(By.xpath("//*[@id='deletecomponent_" + id + "']"));
         deleteButton.click();
 
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        WebElement submit = driver.findElement(By.xpath("//*[@id=\"submit\"]"));
+        WebElement submit = driver.findElement(By.xpath("//*[@id='submit']"));
         submit.click();
 
     }
@@ -80,7 +63,13 @@ public class ComponentPage {
         return addButton;
     }
 
-    public WebElement getGlassDocumentationButton() {
-        return glassDocumentationButton;
+
+    public void createComponent(String compName, String assignee) {
+
+        componentFieldName.sendKeys(compName);
+        assigneeField.sendKeys(assignee);
+        assigneeField.sendKeys(Keys.ENTER);
+
+        addButton.click();
     }
 }
