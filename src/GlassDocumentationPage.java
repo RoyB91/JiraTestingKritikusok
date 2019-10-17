@@ -7,6 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GlassDocumentationPage {
@@ -23,6 +24,9 @@ public class GlassDocumentationPage {
     @FindBy(id = "aui-uid-3")
     private WebElement schemePage;
 
+    @FindBy(id = "aui-uid-2")
+    private WebElement versions;
+
     @FindBy(xpath = "//*[@class='project-meta-label' and text()='Issue Type Scheme']")
     private WebElement issueTypeSchemeRow;
 
@@ -31,6 +35,12 @@ public class GlassDocumentationPage {
 
     @FindBy(xpath = "//a[@data-target='permissions']")
     private WebElement permissionsPart;
+
+    @FindBy(xpath = "//td[@class='versions-table__name']//a[text()='kritikusok1.0']")
+    private WebElement testVersions;
+
+    @FindBy(xpath = "//div[@class='aui-page-header-main']//h2")
+    private WebElement validateText;
 
     private WebElement permissionCheckMark;
     private List<WebElement> list;
@@ -80,5 +90,22 @@ public class GlassDocumentationPage {
 
     public void goToPermissions() {
         permissionsPart.click();
+    }
+
+    public void goToVersions(){
+        versions.click();
+    }
+
+    public void clickOnSpecifiedVersion(){
+        testVersions.click();
+    }
+
+    public String getValidateText() {
+        return validateText.getText();
+    }
+
+    public void checkVersionTextOnOtherTab(){
+        ArrayList<String> tabs2 = new ArrayList<String> (driver.getWindowHandles());
+        driver.switchTo().window(tabs2.get(1));
     }
 }
