@@ -68,8 +68,8 @@ public class CreateIssuePage {
 
     public void selectAnIssue(String issueType) {
         webDriverWait.until(ExpectedConditions.elementToBeClickable(issueTypeField)).click();
-        issueTypeField.sendKeys(issueType);
-        issueTypeField.sendKeys(Keys.TAB);
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(issueTypeField)).sendKeys(issueType);
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(issueTypeField)).sendKeys(Keys.TAB);
     }
 
     public void fillTheSummaryField(String summary) {
