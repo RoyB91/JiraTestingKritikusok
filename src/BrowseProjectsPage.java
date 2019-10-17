@@ -25,7 +25,7 @@ public class BrowseProjectsPage {
 
     }
 
-    public void clickViewAllProjects(String project) {
+    public void clickViewAllProjects() {
         waitForClickable(viewAllProjectsButton);
         viewAllProjectsButton.click();
 
@@ -37,7 +37,7 @@ public class BrowseProjectsPage {
 
     }
 
-    public void clickBusinessProjects(String project) {
+    public void clickBusinessProjects() {
         waitForClickable(businessProjects);
         businessProjects.click();
 

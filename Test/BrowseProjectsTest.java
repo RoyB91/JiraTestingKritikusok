@@ -1,6 +1,5 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.WebDriver;
@@ -35,10 +34,10 @@ public class BrowseProjectsTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/ViewAllProjectsTestData.csv")
+    @CsvFileSource(resources = "resources/BrowseProjectsTestData.csv")
     public void viewAllProjects(String project) {
         browseProjectsPage.clickProjectsDropdown();
-        browseProjectsPage.clickViewAllProjects(project);
+        browseProjectsPage.clickViewAllProjects();
         browseProjectsPage.clickGivenProject(project);
 
         assertTrue(browseProjectsPage.isElementDisplayed(browseProjectsPage.projectSummary(project)));
@@ -46,10 +45,10 @@ public class BrowseProjectsTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/ViewAllProjectsTestData.csv")
+    @CsvFileSource(resources = "resources/BrowseProjectsTestData.csv")
     public void viewBusinessProjects(String project) {
         browseProjectsPage.clickProjectsDropdown();
-        browseProjectsPage.clickBusinessProjects(project);
+        browseProjectsPage.clickBusinessProjects();
         browseProjectsPage.clickGivenProject(project);
 
         assertTrue(browseProjectsPage.isElementDisplayed(browseProjectsPage.projectSummary(project)));
@@ -57,34 +56,10 @@ public class BrowseProjectsTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/ViewAllProjectsTestData.csv")
-    public void viewCoalaProject(String project) {
+    @CsvFileSource(resources = "resources/BrowseProjectsTestData.csv")
+    public void viewProjects(String project) {
         browseProjectsPage.clickProjectsDropdown();
-        browseProjectsPage.clickViewAllProjects(project);
-        browseProjectsPage.clickGivenProject(project);
-        browseProjectsPage.clickProjectSummary(project);
-
-        assertTrue(browseProjectsPage.isElementDisplayed(browseProjectsPage.projectActivity()));
-
-    }
-
-    @ParameterizedTest
-    @CsvFileSource(resources = "resources/ViewAllProjectsTestData.csv")
-    public void viewToucanProject(String project) {
-        browseProjectsPage.clickProjectsDropdown();
-        browseProjectsPage.clickViewAllProjects(project);
-        browseProjectsPage.clickGivenProject(project);
-        browseProjectsPage.clickProjectSummary(project);
-
-        assertTrue(browseProjectsPage.isElementDisplayed(browseProjectsPage.projectActivity()));
-
-    }
-
-    @ParameterizedTest
-    @CsvFileSource(resources = "resources/ViewAllProjectsTestData.csv")
-    public void viewJetiProject(String project) {
-        browseProjectsPage.clickProjectsDropdown();
-        browseProjectsPage.clickViewAllProjects(project);
+        browseProjectsPage.clickViewAllProjects();
         browseProjectsPage.clickGivenProject(project);
         browseProjectsPage.clickProjectSummary(project);
 
