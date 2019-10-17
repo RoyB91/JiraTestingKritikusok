@@ -1,5 +1,6 @@
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -56,7 +57,7 @@ public class CreateIssuePage {
     }
 
 
-    public void clickTheCreateButton(){
+    public void clickTheCreateButton() {
         mainNavBar.getCreateButton().click();
     }
 
@@ -70,7 +71,7 @@ public class CreateIssuePage {
         webDriverWait.until(ExpectedConditions.elementToBeClickable(issueTypeField)).click();
         webDriverWait.until(ExpectedConditions.elementToBeClickable(issueTypeField)).sendKeys(issueType);
         webDriverWait.until(ExpectedConditions.elementToBeClickable(issueTypeField)).sendKeys(Keys.TAB);
-        webDriverWait.until(ExpectedConditions.visibilityOf(issueTypeField));
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(issueTypeField));
     }
 
     public void fillTheSummaryField(String summary) {
@@ -78,23 +79,23 @@ public class CreateIssuePage {
         summaryField.sendKeys(summary);
     }
 
-    public void clickTheCreateIssueButton(){
+    public void clickTheCreateIssueButton() {
         webDriverWait.until(ExpectedConditions.elementToBeClickable(createIssueButton)).click();
     }
 
-    public void clickTheCreatedIssueLink(){
+    public void clickTheCreatedIssueLink() {
         webDriverWait.until(ExpectedConditions.elementToBeClickable(clickLink)).click();
     }
 
-    public void clickOnMoreButton(){
+    public void clickOnMoreButton() {
         moreButton.click();
     }
 
-    public void clickOnTheCreateSubTaskButton(){
+    public void clickOnTheCreateSubTaskButton() {
         createSubTask.click();
     }
 
-    public void checkTheSubTask(){
+    public void checkTheSubTask() {
         for (int i = 0; i < summaries.size(); i++) {
             if (summaries.get(i).getText().equals("text Subtask")) {
                 assertEquals(summaries.get(i).getText(), "text Subtask");

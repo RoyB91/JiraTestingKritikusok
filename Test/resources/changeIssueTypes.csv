@@ -1,2 +1,10 @@
-project, issueType1, issueType2, issueType3
-COALA Project (COALA), Bug, Task, Story
+project, issueType
+COALA Project (COALA), Bug
+COALA Project (COALA), Task
+COALA Project (COALA), Story
+JETI Project (JETI), Bug
+JETI Project (JETI), Task
+JETI Project (JETI), Story
+TOUCAN projekt (TOUCAN), Bug
+TOUCAN projekt (TOUCAN), Task
+TOUCAN projekt (TOUCAN), Story
