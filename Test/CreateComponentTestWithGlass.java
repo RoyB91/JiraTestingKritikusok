@@ -20,8 +20,8 @@ class CreateComponentTestWithGlass {
 
     @BeforeEach
     public void setup() {
-        loginPage.loginWithValidData();
         driver.manage().window().maximize();
+        loginPage.loginWithValidData();
         componentPage = new ComponentPage(driver);
         glassDocumentationPage = new GlassDocumentationPage(driver);
 

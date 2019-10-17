@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.List;
 public class GlassDocumentationPage {
 
     private WebDriver driver;
+    private WebDriverWait wait;
 
     @FindBy(xpath = "//*[@id='components-table']//*[@class='items']")
     private WebElement table;
@@ -44,6 +47,7 @@ public class GlassDocumentationPage {
 
     GlassDocumentationPage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, 10);
         PageFactory.initElements(driver, this);
     }
 
@@ -67,6 +71,7 @@ public class GlassDocumentationPage {
     }
 
     public void goToGlassDocumentationPage() {
+        wait.until(ExpectedConditions.elementToBeClickable(glassDocumentationButton));
         glassDocumentationButton.click();
     }
 
