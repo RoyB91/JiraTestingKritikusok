@@ -16,13 +16,13 @@ class EditIssueTest {
     private WebDriver driver = main.getDriver();
     private EditIssuePage editIssuePage;
     private IssuePage issuePage = new IssuePage(driver);
-
+    private LoginPage loginPage = new LoginPage(driver);
 
     @BeforeEach
     public void setup() {
         editIssuePage = new EditIssuePage(driver, issuePage);
 
-        main.loginWithValidData();
+        loginPage.loginWithValidData();
         driver.manage().window().maximize();
 
     }

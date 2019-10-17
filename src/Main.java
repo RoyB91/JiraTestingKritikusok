@@ -19,19 +19,4 @@ public class Main {
         return driver;
     }
 
-    //login page
-    public void loginWithValidData() {
-        driver.manage().window().maximize();
-        driver.get("https://jira.codecool.codecanvas.hu/login.jsp");
-        WebElement loginField = driver.findElement(By.xpath("//*[@id=\"login-form-username\"]"));
-        loginField.clear();
-        loginField.sendKeys(username);
-
-        WebElement passwordField = driver.findElement(By.xpath("//*[@id=\"login-form-password\"]"));
-        passwordField.sendKeys(password);
-        WebElement loginButton = driver.findElement(By.xpath("//*[@id=\"login-form-submit\"]"));
-        loginButton.click();
-    }
-
-
 }

@@ -21,12 +21,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CreateIssueTest {
 
     private Main main = new Main();
+    private WebDriver driver = main.getDriver();
+    private LoginPage loginPage = new LoginPage(driver);
     private CreateIssuePage createIssuePage = new CreateIssuePage(main.getDriver());
 
     @BeforeEach
     public void setup() {
-        main.loginWithValidData();
         main.getDriver().manage().window().maximize();
+        loginPage.loginWithValidData();
     }
 
     @AfterEach
