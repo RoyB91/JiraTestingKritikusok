@@ -1,6 +1,9 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
@@ -11,11 +14,13 @@ import java.awt.*;
 public class BrowseIssueTest {
 
     private Main main = new Main();
+    private WebDriver driver = main.getDriver();
+    private LoginPage loginPage = new LoginPage(driver);
     private BrowseIssuePage browseIssuePage = new BrowseIssuePage(main.getDriver());
 
     @BeforeEach
-    public void setup() {
-        main.loginWithValidData();
+    public void setup(){
+        loginPage.loginWithValidData();
         main.getDriver().manage().window().maximize();
     }
 

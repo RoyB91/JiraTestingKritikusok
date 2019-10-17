@@ -10,14 +10,15 @@ public class IssueTypeSchemeGlass {
 
     private Main main = new Main();
     private WebDriver driver = main.getDriver();
+    private LoginPage loginPage = new LoginPage(driver);
     private ProjectPage projectPage = new ProjectPage(driver);
     private GlassDocumentationPage glassDocumentationPage = new GlassDocumentationPage(driver);
 
 
     @BeforeEach
     public void setup() {
-        main.loginWithValidData();
-        driver.manage().window().maximize();
+        loginPage.loginWithValidData();
+        main.getDriver().manage().window().maximize();
     }
 
     @AfterEach

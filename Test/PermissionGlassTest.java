@@ -2,18 +2,28 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PermissionGlassTest {
 
     private Main main = new Main();
+    private WebDriver driver = main.getDriver();
+    private LoginPage loginPage = new LoginPage(driver);
+    private WebDriverWait webDriverWait = new WebDriverWait(main.getDriver(), 20);
     private ProjectPage projectPage = new ProjectPage(main.getDriver());
     private GlassDocumentationPage glassDocumentationPage = new GlassDocumentationPage(main.getDriver());
 
     @BeforeEach
     public void setup() {
-        main.loginWithValidData();
+        loginPage.loginWithValidData();
         main.getDriver().manage().window().maximize();
     }
 

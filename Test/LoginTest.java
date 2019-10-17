@@ -1,7 +1,11 @@
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,93 +18,82 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LoginTest {
 
-
     private Main main = new Main();
     private WebDriver driver = main.getDriver();
+    private LoginPage loginPage = new LoginPage(driver);
     private String username = System.getenv("UserName");
     private String password = System.getenv("PASSWORD");
-    private WebDriverWait wait = new WebDriverWait(driver, 15);
+
+    @BeforeEach
+    public void open() {
+        driver.manage().window().maximize();
+        driver.get("https://jira.codecool.codecanvas.hu/login.jsp");
+
+    }
 
     @AfterEach
     public void close(){
         driver.quit();
     }
 
-    @Test
-    public void loginWithValidDataFromLoginPage() {
+    @ParameterizedTest
+    @CsvFileSource(resources = "resources/LoginTestData.csv", numLinesToSkip = 1)
+    public void loginWithValidDataFromLoginPage(String username, String password) {
+        loginPage.loginWithParameters(username, password);
+        loginPage.clickAvatarPicture();
 
-        main.loginWithValidData();
-        WebElement avatarPicture = driver.findElement(By.xpath("//*[@id=\"header-details-user-fullname\"]/span/span"));
-        avatarPicture.click();
+        assertTrue(loginPage.getLogOutButton().isDisplayed());
 
-        WebElement logoutOption = driver.findElement(By.xpath("//*[@id=\"log_out\"]"));
-        assertTrue(logoutOption.isDisplayed());
     }
 
     @Test
     public void loginWithWrongPassword() {
-        driver.get("https://jira.codecool.codecanvas.hu/login.jsp");
-        WebElement loginField = driver.findElement(By.xpath("//*[@id=\"login-form-username\"]"));
-        loginField.clear();
-        loginField.sendKeys(username);
+        String wrongPassword = "1";
+        loginPage.writeUsername(username);
+        loginPage.writePassword(wrongPassword);
+        loginPage.clickLoginButton();
 
-        WebElement passwordField = driver.findElement(By.xpath("//*[@id=\"login-form-password\"]"));
-        passwordField.sendKeys("1");
-        WebElement loginButton = driver.findElement(By.xpath("//*[@id=\"login-form-submit\"]"));
-        loginButton.click();
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[@id=\"login-form\"]/div[1]/div[1]"))));
-        assertTrue(driver.findElement(By.xpath("//*[@id=\"login-form\"]/div[1]/div[1]")).isDisplayed());
+        assertTrue(loginPage.getErrorMessage().isDisplayed());
+
     }
 
-    @Test
-    public void loginValidDataFromMainPage() {
-        driver.get("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
-        WebElement loginField = driver.findElement(By.xpath("//*[@id=\"login-form-username\"]"));
-        loginField.clear();
-        loginField.sendKeys(username);
+    @ParameterizedTest
+    @CsvFileSource(resources = "resources/LoginTestData.csv", numLinesToSkip = 1)
+    public void loginValidDataFromMainPage(String username, String password) {
+        loginPage.writeUsername(username);
+        loginPage.writePassword(password);
+        loginPage.clickLoginButton();
+        loginPage.clickAvatarPicture();
 
-        WebElement passwordField = driver.findElement(By.xpath("//*[@id=\"login-form-password\"]"));
-        passwordField.sendKeys(password);
-        WebElement loginButton = driver.findElement(By.xpath("//*[@id=\"login\"]"));
-        loginButton.click();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        assertTrue(loginPage.getLogOutButton().isDisplayed());
 
-
-        WebElement avatarPicture = driver.findElement(By.xpath("//*[@id=\"header-details-user-fullname\"]/span/span"));
-        avatarPicture.click();
-
-        WebElement logoutOption = driver.findElement(By.xpath("//*[@id=\"log_out\"]"));
-        assertTrue(logoutOption.isDisplayed());
     }
 
     @Test
     public void loginWithEmptyFields() {
-        driver.get("https://jira.codecool.codecanvas.hu/login.jsp");
-        WebElement loginField = driver.findElement(By.xpath("//*[@id=\"login-form-username\"]"));
-        loginField.clear();
+        String emptyField = "";
+        loginPage.writeUsername(emptyField);
+        loginPage.writePassword(emptyField);
+        loginPage.clickLoginButton();
 
-        WebElement passwordField = driver.findElement(By.xpath("//*[@id=\"login-form-password\"]"));
-        passwordField.clear();
+        assertTrue(loginPage.getErrorMessage().isDisplayed());
 
-        WebElement loginButton = driver.findElement(By.xpath("//*[@id=\"login-form-submit\"]"));
-        loginButton.click();
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[@id=\"login-form\"]/div[1]/div[1]"))));
-        assertTrue(driver.findElement(By.xpath("//*[@id=\"login-form\"]/div[1]/div[1]")).isDisplayed());
     }
 
-    @Test
-    public void caseSensitiveLoginCheck() {
-        driver.get("https://jira.codecool.codecanvas.hu/login.jsp");
-        WebElement loginField = driver.findElement(By.xpath("//*[@id=\"login-form-username\"]"));
-        loginField.clear();
-        loginField.sendKeys(username.toUpperCase());
+    @ParameterizedTest
+    @CsvFileSource(resources = "resources/LoginTestData.csv", numLinesToSkip = 1)
+    public void caseSensitiveLoginCheck(String username, String password) {
+        loginPage.writeUsername(username.toUpperCase());
+        loginPage.writePassword(password);
+        loginPage.clickLoginButton();
 
-        WebElement passwordField = driver.findElement(By.xpath("//*[@id=\"login-form-password\"]"));
-        passwordField.sendKeys("1");
-        WebElement loginButton = driver.findElement(By.xpath("//*[@id=\"login-form-submit\"]"));
-        loginButton.click();
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[@id=\"login-form\"]/div[1]/div[1]"))));
-        assertTrue(driver.findElement(By.xpath("//*[@id=\"login-form\"]/div[1]/div[1]")).isDisplayed());
+        try {
+            assertTrue(loginPage.getErrorMessage().isDisplayed());
+        } catch (NoSuchElementException e) {
+            loginPage.clickAvatarPicture();
+            assertFalse(loginPage.getLogOutButton().isDisplayed());
+        }
+
     }
 
 }

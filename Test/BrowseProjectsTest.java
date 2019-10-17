@@ -13,6 +13,7 @@ public class BrowseProjectsTest {
 
     private Main main = new Main();
     private WebDriver driver = main.getDriver();
+    private LoginPage loginPage = new LoginPage(driver);
     private BrowseProjectsPage browseProjectsPage = new BrowseProjectsPage(driver);
 
     private String url = "https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa";
@@ -22,7 +23,7 @@ public class BrowseProjectsTest {
     @BeforeEach
     public void login() {
         driver.manage().window().maximize();
-        main.loginWithValidData();
+        loginPage.loginWithValidData();
         driver.get(url);
 
     }
@@ -40,7 +41,7 @@ public class BrowseProjectsTest {
         browseProjectsPage.clickViewAllProjects(project);
         browseProjectsPage.clickGivenProject(project);
 
-        assertTrue(browseProjectsPage.projectSummary(project).isDisplayed());
+        assertTrue(browseProjectsPage.isElementDisplayed(browseProjectsPage.projectSummary(project)));
 
     }
 
@@ -51,7 +52,7 @@ public class BrowseProjectsTest {
         browseProjectsPage.clickBusinessProjects(project);
         browseProjectsPage.clickGivenProject(project);
 
-        assertTrue(browseProjectsPage.projectSummary(project).isDisplayed());
+        assertTrue(browseProjectsPage.isElementDisplayed(browseProjectsPage.projectSummary(project)));
 
     }
 
@@ -63,7 +64,7 @@ public class BrowseProjectsTest {
         browseProjectsPage.clickGivenProject(project);
         browseProjectsPage.clickProjectSummary(project);
 
-        assertTrue(browseProjectsPage.projectActivity().isDisplayed());
+        assertTrue(browseProjectsPage.isElementDisplayed(browseProjectsPage.projectActivity()));
 
     }
 
@@ -75,7 +76,7 @@ public class BrowseProjectsTest {
         browseProjectsPage.clickGivenProject(project);
         browseProjectsPage.clickProjectSummary(project);
 
-        assertTrue(browseProjectsPage.projectActivity().isDisplayed());
+        assertTrue(browseProjectsPage.isElementDisplayed(browseProjectsPage.projectActivity()));
 
     }
 
@@ -87,7 +88,7 @@ public class BrowseProjectsTest {
         browseProjectsPage.clickGivenProject(project);
         browseProjectsPage.clickProjectSummary(project);
 
-        assertTrue(browseProjectsPage.projectActivity().isDisplayed());
+        assertTrue(browseProjectsPage.isElementDisplayed(browseProjectsPage.projectActivity()));
 
     }
 

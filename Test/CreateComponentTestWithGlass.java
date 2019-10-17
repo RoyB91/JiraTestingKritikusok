@@ -12,6 +12,7 @@ class CreateComponentTestWithGlass {
 
     private Main main = new Main();
     private WebDriver driver = main.getDriver();
+    private LoginPage loginPage = new LoginPage(driver);
     private WebDriverWait wait = new WebDriverWait(driver, 15);
 
     private ComponentPage componentPage;
@@ -19,7 +20,7 @@ class CreateComponentTestWithGlass {
 
     @BeforeEach
     public void setup() {
-        main.loginWithValidData();
+        loginPage.loginWithValidData();
         driver.manage().window().maximize();
         componentPage = new ComponentPage(driver);
         glassDocumentationPage = new GlassDocumentationPage(driver);

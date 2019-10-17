@@ -11,11 +11,66 @@ public class BrowseProjectsPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-
     BrowseProjectsPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 15);
         PageFactory.initElements(driver, this);
+
+    }
+
+
+    public void clickProjectsDropdown() {
+        waitForClickable(projectsButton);
+        projectsButton.click();
+
+    }
+
+    public void clickViewAllProjects(String project) {
+        waitForClickable(viewAllProjectsButton);
+        viewAllProjectsButton.click();
+
+    }
+
+    public void clickGivenProject(String project) {
+        waitForClickable(browseProject(project));
+        browseProject(project).click();
+
+    }
+
+    public void clickBusinessProjects(String project) {
+        waitForClickable(businessProjects);
+        businessProjects.click();
+
+    }
+
+    public void clickProjectSummary(String project) {
+        waitForClickable(projectSummary(project));
+        projectSummary(project).click();
+        waitForVisible(projectActivity());
+
+    }
+
+    public void waitForClickable(WebElement element) {
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+
+    }
+
+    public void waitForVisible(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
+
+    }
+
+    public boolean isElementDisplayed(WebElement element) {
+        return element.isDisplayed();
+
+    }
+
+
+    public WebElement browseProject(String projectName) {
+        if (projectName.equals("TOUCAN"))
+            return driver.findElement(By.linkText(projectName + " projekt"));
+
+        return driver.findElement(By.linkText(projectName + " Project"));
 
     }
 
@@ -29,61 +84,10 @@ public class BrowseProjectsPage {
 
     }
 
-    public WebElement browseProject(String projectName) {
-        if (projectName.equals("TOUCAN"))
-            return driver.findElement(By.linkText(projectName + " projekt"));
-
-        return driver.findElement(By.linkText(projectName + " Project"));
-
-    }
-
-    public void clickProjectSummary(String project) {
-        projectSummary(project).click();
-        wait.until(ExpectedConditions.visibilityOf(projectActivity()));
-
-    }
-
-
-    public void clickProjectsDropdown() {
-        getProjectsButton().click();
-        wait.until(ExpectedConditions.elementToBeClickable(getViewAllProjectsButton()));
-
-    }
-
-    public void clickViewAllProjects(String project) {
-        getViewAllProjectsButton().click();
-        wait.until(ExpectedConditions.elementToBeClickable(browseProject(project)));
-
-    }
-
-    public void clickGivenProject(String project) {
-        browseProject(project).click();
-        wait.until(ExpectedConditions.visibilityOf(browseProject(project)));
-
-    }
-
-    public void clickBusinessProjects(String project) {
-        getBusinessProjects().click();
-        wait.until(ExpectedConditions.elementToBeClickable(browseProject(project)));
-
-    }
-
     @FindBy(id = "browse_link") private WebElement projectsButton;
 
     @FindBy(id = "project_view_all_link_lnk") private WebElement viewAllProjectsButton;
 
     @FindBy(id = "project_type_business_lnk") private WebElement businessProjects;
-
-    public WebElement getProjectsButton() {
-        return projectsButton;
-    }
-
-    public WebElement getViewAllProjectsButton() { return viewAllProjectsButton; }
-
-    public WebElement getBusinessProjects() {
-        return businessProjects;
-    }
-
-
 
 }
