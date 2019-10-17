@@ -19,8 +19,8 @@ public class ManageGlassTest {
 
     @BeforeEach
     public void setup(){
-        loginPage.loginWithValidData();
         main.getDriver().manage().window().maximize();
+        loginPage.loginWithValidData();
     }
 
     @AfterEach

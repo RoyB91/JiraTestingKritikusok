@@ -21,9 +21,8 @@ class EditIssueTest {
     @BeforeEach
     public void setup() {
         editIssuePage = new EditIssuePage(driver, issuePage);
-
-        loginPage.loginWithValidData();
         driver.manage().window().maximize();
+        loginPage.loginWithValidData();
 
     }
 
