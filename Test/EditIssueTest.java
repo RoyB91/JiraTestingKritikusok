@@ -16,7 +16,7 @@ class EditIssueTest {
     private WebDriver driver = main.getDriver();
     private EditIssuePage editIssuePage;
     private IssuePage issuePage = new IssuePage(driver);
-    private LoginPage loginPage = new LoginPage(driver);
+    private LoginPage loginPage = new LoginPage();
 
     @BeforeEach
     public void setup() {

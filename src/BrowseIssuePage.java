@@ -12,6 +12,7 @@ public class BrowseIssuePage {
 
     private WebDriver driver;
     private WebDriverWait webDriverWait;
+
     @FindBy(xpath = "//*[@id=\"summary-val\"]\n")
     private WebElement errorMessage;
     @FindBy(className = "fieldLabel")

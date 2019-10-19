@@ -21,7 +21,7 @@ public class CreateIssue {
 
     private Main main = new Main();
     private WebDriver driver = main.getDriver();
-    private LoginPage loginPage = new LoginPage(driver);
+    private LoginPage loginPage = new LoginPage();
     private WebDriverWait webDriverWait = new WebDriverWait(main.getDriver(), 15);
 
     @BeforeEach

@@ -15,7 +15,7 @@ public class ManageGlassTest {
 
     private Main main = new Main();
     private WebDriver driver = main.getDriver();
-    private LoginPage loginPage = new LoginPage(driver);
+    private LoginPage loginPage = new LoginPage();
     private GlassDocumentationPage glassDocumentationPage = new GlassDocumentationPage(main.getDriver());
 
     @BeforeEach

@@ -22,7 +22,7 @@ public class CreateIssueTest {
 
     private Main main = new Main();
     private WebDriver driver = main.getDriver();
-    private LoginPage loginPage = new LoginPage(driver);
+    private LoginPage loginPage = new LoginPage();
     private CreateIssuePage createIssuePage = new CreateIssuePage(main.getDriver());
 
     @BeforeEach

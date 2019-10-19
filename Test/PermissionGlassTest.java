@@ -11,8 +11,7 @@ public class PermissionGlassTest {
 
     private Main main = new Main();
     private WebDriver driver = main.getDriver();
-    private LoginPage loginPage = new LoginPage(driver);
-    private WebDriverWait webDriverWait = new WebDriverWait(main.getDriver(), 20);
+    private LoginPage loginPage = new LoginPage();
     private ProjectPage projectPage = new ProjectPage(main.getDriver());
     private GlassDocumentationPage glassDocumentationPage = new GlassDocumentationPage(main.getDriver());
 

@@ -12,7 +12,7 @@ public class BrowseProjectsTest {
 
     private Main main = new Main();
     private WebDriver driver = main.getDriver();
-    private LoginPage loginPage = new LoginPage(driver);
+    private LoginPage loginPage = new LoginPage();
     private BrowseProjectsPage browseProjectsPage = new BrowseProjectsPage(driver);
 
     private String url = "https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa";

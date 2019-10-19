@@ -12,7 +12,7 @@ class CreateComponentTestWithGlass {
 
     private Main main = new Main();
     private WebDriver driver = main.getDriver();
-    private LoginPage loginPage = new LoginPage(driver);
+    private LoginPage loginPage = new LoginPage();
     private WebDriverWait wait = new WebDriverWait(driver, 15);
 
     private ComponentPage componentPage;

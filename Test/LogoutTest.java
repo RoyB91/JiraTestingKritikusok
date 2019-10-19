@@ -13,7 +13,7 @@ class LogoutTest {
 
     private Main main = new Main();
     private WebDriver driver = main.getDriver();
-    private LoginPage loginPage = new LoginPage(driver);
+    private LoginPage loginPage = new LoginPage();
     private MainNavBar mainNavBar = new MainNavBar(driver);
 
     @BeforeEach

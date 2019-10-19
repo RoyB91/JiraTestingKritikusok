@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class GlassDocumentationPage {
 
@@ -18,7 +19,7 @@ public class GlassDocumentationPage {
     @FindBy(xpath = "//*[@id='components-table']//*[@class='items']")
     private WebElement table;
 
-    @FindBy(css = "[data-link-id='com.codecanvas.glass:glass']")
+    @FindBy(xpath = "//span[@title='Glass Documentation']")
     private WebElement glassDocumentationButton;
 
     @FindBy(id = "aui-uid-3")
@@ -71,7 +72,7 @@ public class GlassDocumentationPage {
     }
 
     public void goToGlassDocumentationPage() {
-        wait.until(ExpectedConditions.elementToBeClickable(glassDocumentationButton));
+        wait.until(ExpectedConditions.visibilityOf(glassDocumentationButton));
         glassDocumentationButton.click();
     }
 
@@ -92,11 +93,11 @@ public class GlassDocumentationPage {
         permissionsPart.click();
     }
 
-    public void goToVersions(){
+    public void goToVersions() {
         versions.click();
     }
 
-    public void clickOnSpecifiedVersion(){
+    public void clickOnSpecifiedVersion() {
         testVersions.click();
     }
 
@@ -104,8 +105,8 @@ public class GlassDocumentationPage {
         return validateText.getText();
     }
 
-    public void checkVersionTextOnOtherTab(){
-        ArrayList<String> tabs2 = new ArrayList<String> (driver.getWindowHandles());
+    public void checkVersionTextOnOtherTab() {
+        ArrayList<String> tabs2 = new ArrayList<String>(driver.getWindowHandles());
         driver.switchTo().window(tabs2.get(1));
     }
 }

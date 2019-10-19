@@ -15,7 +15,7 @@ public class BrowseIssueTest {
 
     private Main main = new Main();
     private WebDriver driver = main.getDriver();
-    private LoginPage loginPage = new LoginPage(driver);
+    private LoginPage loginPage = new LoginPage();
     private BrowseIssuePage browseIssuePage = new BrowseIssuePage(main.getDriver());
 
     @BeforeEach
