@@ -1,0 +1,10 @@
+
+
+Environment variables:
+
+    UserName;
+    PASSWORD;
+    CUSTOM_DRIVER;
+    BASE_URL
+    WAIT_TimeUNIT;
+    WINDOWS_SIZE;
