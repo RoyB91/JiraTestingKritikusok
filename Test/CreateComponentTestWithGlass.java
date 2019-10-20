@@ -22,7 +22,7 @@ class CreateComponentTestWithGlass {
     public void setup() {
         driver.manage().window().maximize();
         loginPage.loginWithValidData();
-        componentPage = new ComponentPage(driver);
+        componentPage = new ComponentPage();
         glassDocumentationPage = new GlassDocumentationPage(driver);
 
     }

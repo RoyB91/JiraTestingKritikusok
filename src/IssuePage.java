@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class IssuePage {
+public class IssuePage extends BasePage {
 
     private WebDriver driver;
     private WebDriverWait wait;
@@ -25,10 +25,12 @@ public class IssuePage {
 
     private String defaultSummaryText = "summary";
 
-    IssuePage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, 15);
-        editIssuePage = new EditIssuePage(driver, this);
+    private String finalURL = getBaseURL() + "/browse";
+
+    IssuePage() {
+        this.driver = getDriver();
+        this.wait = getWait();
+        editIssuePage = new EditIssuePage(this);
         PageFactory.initElements(driver, this);
     }
 
@@ -36,14 +38,19 @@ public class IssuePage {
         element.click();
     }
 
+    public String getFinalURL() {
+        return finalURL;
+    }
 
-    public void clickEditIssueButton() {
+    public void clickEditIssueButton(String issueSpecURL) {
+        driver.navigate().to(finalURL + issueSpecURL);
         getEditIssueButton().click();
         wait.until(ExpectedConditions.visibilityOf(editIssuePage.getJiraDialogContent()));
 
     }
 
-    public boolean isEditIssueButtonIsThere() {
+    public boolean isEditIssueButtonIsThere(String issueSpecURL) {
+        driver.navigate().to(finalURL + issueSpecURL);
         try {
             getEditIssueButton().isDisplayed();
             return true;

@@ -13,31 +13,28 @@ import java.awt.*;
 
 public class BrowseIssueTest {
 
-    private Main main = new Main();
-    private WebDriver driver = main.getDriver();
     private LoginPage loginPage = new LoginPage();
-    private BrowseIssuePage browseIssuePage = new BrowseIssuePage(main.getDriver());
+    private BrowseIssuePage browseIssuePage = new BrowseIssuePage();
 
     @BeforeEach
-    public void setup(){
-        main.getDriver().manage().window().maximize();
+    public void setup() {
         loginPage.loginWithValidData();
     }
 
     @AfterEach
     public void close() {
-        main.getDriver().quit();
+
     }
 
     @Test
     public void detailsOfTasks() {
-        browseIssuePage.detailsOfTasks(main.getDriver());
+        browseIssuePage.detailsOfTasks();
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "resources/browseIssue.csv", numLinesToSkip = 1)
     public void projectJetiContainsIssue(String projectname) {
-        browseIssuePage.navigateToAnIssue(main.getDriver(), projectname);
+        browseIssuePage.navigateToAnIssue(projectname);
         assertTrue(browseIssuePage.issueTitleIsDisplayed());
     }
 
