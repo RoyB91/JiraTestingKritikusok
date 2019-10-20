@@ -8,12 +8,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class BrowseIssuePage {
+public class BrowseIssuePage extends BasePage {
 
     private WebDriver driver;
-    private WebDriverWait webDriverWait;
+    private WebDriverWait wait;
+    private String browseIssueURL = getBaseURL() + "/browse";
 
-    @FindBy(xpath = "//*[@id=\"summary-val\"]\n")
+    @FindBy(xpath = "//*[@id='summary-val']")
     private WebElement errorMessage;
     @FindBy(className = "fieldLabel")
     private WebElement selectProject;
@@ -26,18 +27,18 @@ public class BrowseIssuePage {
     @FindBy(id = "summary-val")
     private WebElement issueTitleText;
 
-    BrowseIssuePage(WebDriver driver){
-        this.driver = driver;
-        this.webDriverWait = new WebDriverWait(driver, 15);
+    BrowseIssuePage() {
+        this.driver = getDriver();
+        this.wait = getWait();
         PageFactory.initElements(driver, this);
     }
 
 
-    public void detailsOfTasks(WebDriver driver) {
-        driver.navigate().to("https://jira.codecool.codecanvas.hu/browse/SAND-25?filter=-3&jql=project%20%3D%20SAND");
+    public void detailsOfTasks() {
+        driver.navigate().to(browseIssueURL + "/SAND-25?filter=-3&jql=project%20%3D%20SAND");
     }
 
-    public void navigateToAnIssue(WebDriver driver, String projectName) {
+    public void navigateToAnIssue(String projectName) {
         driver.navigate().to("https://jira.codecool.codecanvas.hu/browse/" + projectName);
     }
 
@@ -45,30 +46,30 @@ public class BrowseIssuePage {
         try {
             errorMessage.isDisplayed();
             return true;
-        } catch (ElementNotVisibleException | NoSuchElementException e){
+        } catch (ElementNotVisibleException | NoSuchElementException e) {
             return false;
         }
     }
 
     public void navigateTo() {
-        driver.navigate().to("https://jira.codecool.codecanvas.hu/browse/WEAKS-60?filter=-3&jql=");
+        driver.navigate().to(browseIssueURL + "/WEAKS-60?filter=-3&jql=");
 
     }
 
-    public void selectProject(){
+    public void selectProject() {
         selectProject.click();
     }
 
-    public void setSelectPp1(){
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(selectPp1)).click();
+    public void setSelectPp1() {
+        wait.until(ExpectedConditions.elementToBeClickable(selectPp1)).click();
     }
 
-    public void clickOnProjectAgain(){
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(clickOnProjectAgain)).click();
+    public void clickOnProjectAgain() {
+        wait.until(ExpectedConditions.elementToBeClickable(clickOnProjectAgain)).click();
     }
 
 
-    public void rightClickOnIssue() throws AWTException{
+    public void rightClickOnIssue() throws AWTException {
         Actions actions = new Actions(driver);
         actions.contextClick(selectPP136).perform();
         Robot robot = new Robot();

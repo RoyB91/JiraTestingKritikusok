@@ -3,7 +3,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class MainNavBar {
+public class MainNavBar extends BasePage {
 
     private WebDriver driver;
     @FindBy(id = "create_link")
@@ -23,8 +23,8 @@ public class MainNavBar {
     @FindBy(xpath = "//*[text()='You are now logged out. Any automatic login has also been stopped.']")
     private WebElement logoutMessage;
 
-    MainNavBar(WebDriver driver) {
-        this.driver = driver;
+    MainNavBar() {
+        this.driver = getDriver();
         PageFactory.initElements(driver, this);
     }
 

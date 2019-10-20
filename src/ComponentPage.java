@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class ComponentPage {
+public class ComponentPage extends BasePage {
 
     private WebDriver driver;
 
@@ -26,8 +26,8 @@ public class ComponentPage {
     @FindBy(xpath = "//*[@id='components-table']//*[text()='Kritikus komponens']")
     private WebElement testComponent;
 
-    ComponentPage(WebDriver driver) {
-        this.driver = driver;
+    ComponentPage() {
+        this.driver = getDriver();
         PageFactory.initElements(driver, this);
     }
 

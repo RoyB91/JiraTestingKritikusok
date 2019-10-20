@@ -3,12 +3,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class WebDriverManager {
 
-    private WebDriver driver;
-
     private static WebDriverManager instance = null;
+    private WebDriver driver = new ChromeDriver();
+
 
     private WebDriverManager() {
-        this.driver = new ChromeDriver();
+
     }
 
     public static WebDriverManager getInstance() {
@@ -19,6 +19,7 @@ public class WebDriverManager {
     }
 
     public WebDriver getDriver() {
+        driver.manage().window().maximize();
         return driver;
     }
 }

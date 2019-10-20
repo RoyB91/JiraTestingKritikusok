@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
-public class ProjectPage {
+public class ProjectPage extends BasePage {
 
 
     private WebDriver driver;
@@ -38,10 +38,9 @@ public class ProjectPage {
 
 
     ProjectPage(WebDriver driver) {
-        this.driver = driver;
-        this.mainNavBar = new MainNavBar(driver);
-
-        this.wait = new WebDriverWait(driver, 15);
+        this.driver = getDriver();
+        this.mainNavBar = new MainNavBar();
+        this.wait = getWait();
         PageFactory.initElements(driver, this);
 
     }

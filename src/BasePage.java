@@ -12,7 +12,7 @@ public abstract class BasePage {
     private String password = System.getenv("PASSWORD");
 
     BasePage() {
-        driver.manage().window().maximize();
+//        driver.manage().window().maximize();
 
     }
 
