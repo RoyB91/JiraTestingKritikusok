@@ -10,7 +10,7 @@ public class BrowseProjectsPage extends BasePage {
 
     private WebDriver driver;
     private WebDriverWait wait;
-    private String url = getBaseURL() + "/secure/Dashboard.jspa";
+    private String browseProjectURL = getBaseURL() + "/secure/Dashboard.jspa";
 
 
     BrowseProjectsPage() {
@@ -22,7 +22,7 @@ public class BrowseProjectsPage extends BasePage {
 
 
     public void clickProjectsDropdown() {
-        driver.navigate().to(url);
+        driver.navigate().to(browseProjectURL);
         waitForClickable(projectsButton);
         projectsButton.click();
 

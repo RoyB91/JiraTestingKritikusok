@@ -11,15 +11,6 @@ class LoginTest {
 
     private LoginPage loginPage = new LoginPage();
 
-    @BeforeEach
-    public void open() {
-
-    }
-
-    @AfterEach
-    public void close() {
-    }
-
     @Test
     public void loginWithValidDataFromLoginPage() {
         loginPage.loginWithParameters(loginPage.getUsername(), loginPage.getPassword());

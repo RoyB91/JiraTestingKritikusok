@@ -1,4 +1,3 @@
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -18,11 +17,6 @@ public class BrowseProjectsTest {
     @BeforeEach
     public void login() {
         loginPage.loginWithValidData();
-
-    }
-
-    @AfterEach
-    public void close() {
 
     }
 

@@ -21,10 +21,6 @@ public class BrowseIssueTest {
         loginPage.loginWithValidData();
     }
 
-    @AfterEach
-    public void close() {
-
-    }
 
     @Test
     public void detailsOfTasks() {

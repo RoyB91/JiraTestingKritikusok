@@ -37,7 +37,7 @@ public class ProjectPage extends BasePage {
     private WebElement permissionText;
 
 
-    ProjectPage(WebDriver driver) {
+    ProjectPage() {
         this.driver = getDriver();
         this.mainNavBar = new MainNavBar();
         this.wait = getWait();
@@ -46,7 +46,7 @@ public class ProjectPage extends BasePage {
     }
 
     public boolean checkIfProjectHasIssueName(String url, String issueTypeName) {
-        driver.navigate().to(url);
+        driver.navigate().to(getBaseURL() + url);
         wait.until(ExpectedConditions.visibilityOf(projectSettingHeader));
         return issueTypeName.equals(issueTypeMessageName.getText());
 
@@ -75,7 +75,8 @@ public class ProjectPage extends BasePage {
         driver.navigate().to("https://jira.codecool.codecanvas.hu/plugins/servlet/project-config/PP1/summary");
     }
 
-    public void clickOnPermissions() {
+    public void clickOnPermissions(String url) {
+        driver.navigate().to(getBaseURL() + url);
         permissions.click();
     }
 }

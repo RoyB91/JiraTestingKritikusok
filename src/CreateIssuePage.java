@@ -87,7 +87,8 @@ public class CreateIssuePage extends BasePage {
         webDriverWait.until(ExpectedConditions.elementToBeClickable(clickLink)).click();
     }
 
-    public void clickOnMoreButton() {
+    public void clickOnMoreButton(String url) {
+        driver.navigate().to(getBaseURL() + url);
         moreButton.click();
     }
 

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class GlassDocumentationPage {
+public class GlassDocumentationPage extends BasePage {
 
     private WebDriver driver;
     private WebDriverWait wait;
@@ -46,9 +46,9 @@ public class GlassDocumentationPage {
     private WebElement permissionCheckMark;
     private List<WebElement> list;
 
-    GlassDocumentationPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, 10);
+    GlassDocumentationPage() {
+        this.driver = getDriver();
+        this.wait = getWait();
         PageFactory.initElements(driver, this);
     }
 
@@ -93,7 +93,8 @@ public class GlassDocumentationPage {
         permissionsPart.click();
     }
 
-    public void goToVersions() {
+    public void goToVersions(String url) {
+        driver.navigate().to(getBaseURL() + url);
         versions.click();
     }
 

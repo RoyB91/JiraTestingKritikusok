@@ -5,8 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ComponentPage extends BasePage {
@@ -31,9 +29,9 @@ public class ComponentPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    public void deleteComponent(WebDriver driver, String url) {
+    public void deleteComponent(String url) {
 
-        driver.navigate().to(url);
+        driver.navigate().to(getBaseURL() + url);
 
         WebElement parentElement = testComponent.findElement(By.xpath("../../.."));
         String id = parentElement.getAttribute("data-component-id");
@@ -64,8 +62,8 @@ public class ComponentPage extends BasePage {
     }
 
 
-    public void createComponent(String compName, String assignee) {
-
+    public void createComponent(String url, String compName, String assignee) {
+        driver.navigate().to(getBaseURL() + url);
         componentFieldName.sendKeys(compName);
         assigneeField.sendKeys(assignee);
         assigneeField.sendKeys(Keys.ENTER);
