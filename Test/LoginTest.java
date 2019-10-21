@@ -42,12 +42,11 @@ class LoginTest {
 
     }
 
-    @ParameterizedTest
-    @CsvFileSource(resources = "resources/LoginTestData.csv", numLinesToSkip = 1)
-    public void caseSensitiveLoginCheck(String username, String password) {
+    @Test
+    public void caseSensitiveLoginCheck() {
         loginPage.navigateURL();
-        loginPage.writeUsername(username.toUpperCase());
-        loginPage.writePassword(password);
+        loginPage.writeUsername(loginPage.getUsername().toUpperCase());
+        loginPage.writePassword(loginPage.getPassword());
         loginPage.clickLoginButton();
 
         try {
