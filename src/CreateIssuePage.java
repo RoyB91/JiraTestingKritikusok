@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CreateIssuePage {
+public class CreateIssuePage extends BasePage {
 
     private WebDriver driver;
     private MainNavBar mainNavBar;
@@ -49,10 +49,10 @@ public class CreateIssuePage {
     @FindBy(css = ".stsummary")
     private List<WebElement> summaries;
 
-    CreateIssuePage(WebDriver driver) {
-        this.driver = driver;
-        this.webDriverWait = new WebDriverWait(driver, 15);
-        this.mainNavBar = new MainNavBar(driver);
+    CreateIssuePage() {
+        this.driver = getDriver();
+        this.webDriverWait = getWait();
+        this.mainNavBar = new MainNavBar();
         PageFactory.initElements(driver, this);
     }
 
@@ -87,7 +87,8 @@ public class CreateIssuePage {
         webDriverWait.until(ExpectedConditions.elementToBeClickable(clickLink)).click();
     }
 
-    public void clickOnMoreButton() {
+    public void clickOnMoreButton(String url) {
+        driver.navigate().to(getBaseURL() + url);
         moreButton.click();
     }
 

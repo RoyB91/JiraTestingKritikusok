@@ -6,20 +6,23 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class BrowseProjectsPage {
+public class BrowseProjectsPage extends BasePage {
 
     private WebDriver driver;
     private WebDriverWait wait;
+    private String browseProjectURL = getBaseURL() + "/secure/Dashboard.jspa";
 
-    BrowseProjectsPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, 15);
+
+    BrowseProjectsPage() {
+        this.driver = getDriver();
+        this.wait = getWait();
         PageFactory.initElements(driver, this);
 
     }
 
 
     public void clickProjectsDropdown() {
+        driver.navigate().to(browseProjectURL);
         waitForClickable(projectsButton);
         projectsButton.click();
 
@@ -84,10 +87,13 @@ public class BrowseProjectsPage {
 
     }
 
-    @FindBy(id = "browse_link") private WebElement projectsButton;
+    @FindBy(id = "browse_link")
+    private WebElement projectsButton;
 
-    @FindBy(id = "project_view_all_link_lnk") private WebElement viewAllProjectsButton;
+    @FindBy(id = "project_view_all_link_lnk")
+    private WebElement viewAllProjectsButton;
 
-    @FindBy(id = "project_type_business_lnk") private WebElement businessProjects;
+    @FindBy(id = "project_type_business_lnk")
+    private WebElement businessProjects;
 
 }

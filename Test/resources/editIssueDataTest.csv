@@ -1,5 +1,5 @@
-url                                                  ,failMessage                                       ,editMessage,expected
-https://jira.codecool.codecanvas.hu/browse/COALA-337 ,This user has no access to edit this type of COALA ISSUE
-https://jira.codecool.codecanvas.hu/browse/TOUCAN-114,This user has no access to edit this type of TOUCAN ISSUE
-https://jira.codecool.codecanvas.hu/browse/JETI-152  ,This user has no access to edit this type of JETI ISSUE
-https://jira.codecool.codecanvas.hu/browse/MTP-270   ,This user has no access to edit this type of  MTP ISSUE,su         ,su
+url        ,failMessage
+/COALA-337 ,This user has no access to edit this type of COALA ISSUE
+/TOUCAN-114,This user has no access to edit this type of TOUCAN ISSUE
+/JETI-152  ,This user has no access to edit this type of JETI ISSUE
+/MTP-270   ,This user has no access to edit this type of  MTP ISSUE

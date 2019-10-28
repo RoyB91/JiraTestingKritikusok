@@ -1,3 +1,4 @@
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
-class EditIssuePage {
+class EditIssuePage extends BasePage {
 
     private WebDriver driver;
     private IssuePage issuePage;
@@ -28,12 +29,19 @@ class EditIssuePage {
     @FindBy(className = "error")
     private WebElement errorField;
 
+    private UtilRandom random;
 
-    EditIssuePage(WebDriver driver, IssuePage issuePage) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, 15);
+    EditIssuePage(IssuePage issuePage) {
+        this.driver = getDriver();
+        this.wait = getWait();
         this.issuePage = issuePage;
+        this.random = new UtilRandom();
         PageFactory.initElements(driver, this);
+    }
+
+
+    public String getRandomUUID() {
+        return random.getRandomGeneratedTestData();
     }
 
     public void clearSummaryText() {
@@ -42,14 +50,12 @@ class EditIssuePage {
 
     public void pressCancelAndConfirm() {
         getCancelButton().click();
-
         driver.switchTo().alert().accept();
-
     }
 
-    public void fillSummaryText(String text) {
+    public void fillSummaryText() {
         getSummaryField().clear();
-        getSummaryField().sendKeys(text);
+        getSummaryField().sendKeys(random.getRandomGeneratedTestData());
     }
 
     public void pressUpdateButton() {
@@ -64,19 +70,6 @@ class EditIssuePage {
 
     }
 
-
-    public void resetIssueSummary(WebDriver driver, String url, String defaultTestText) {
-        WebDriverWait wait = new WebDriverWait(driver, 15);
-        IssuePage issuePage = new IssuePage(driver);
-        driver.navigate().to(url);
-        issuePage.getEditIssueButton().click();
-        wait.until(ExpectedConditions.visibilityOf(getJiraDialogContent()));
-
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        summaryField.clear();
-        summaryField.sendKeys(defaultTestText);
-        updateButton.click();
-    }
 
     public WebElement getSummaryField() {
         return summaryField;

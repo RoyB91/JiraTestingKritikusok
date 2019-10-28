@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
-public class ProjectPage {
+public class ProjectPage extends BasePage {
 
 
     private WebDriver driver;
@@ -37,17 +37,16 @@ public class ProjectPage {
     private WebElement permissionText;
 
 
-    ProjectPage(WebDriver driver) {
-        this.driver = driver;
-        this.mainNavBar = new MainNavBar(driver);
-
-        this.wait = new WebDriverWait(driver, 15);
+    ProjectPage() {
+        this.driver = getDriver();
+        this.mainNavBar = new MainNavBar();
+        this.wait = getWait();
         PageFactory.initElements(driver, this);
 
     }
 
     public boolean checkIfProjectHasIssueName(String url, String issueTypeName) {
-        driver.navigate().to(url);
+        driver.navigate().to(getBaseURL() + url);
         wait.until(ExpectedConditions.visibilityOf(projectSettingHeader));
         return issueTypeName.equals(issueTypeMessageName.getText());
 
@@ -76,7 +75,8 @@ public class ProjectPage {
         driver.navigate().to("https://jira.codecool.codecanvas.hu/plugins/servlet/project-config/PP1/summary");
     }
 
-    public void clickOnPermissions() {
+    public void clickOnPermissions(String url) {
+        driver.navigate().to(getBaseURL() + url);
         permissions.click();
     }
 }

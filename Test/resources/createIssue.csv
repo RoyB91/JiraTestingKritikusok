@@ -1,4 +1,4 @@
-project      ,issueType    ,summary
-COALA Project (COALA), Bug, create issue
-JETI Project (JETI), Task, create issue
-TOUCAN projekt (TOUCAN), Story, create issue
+project                ,issueType,summary     ,errorMessage
+COALA Project (COALA)  ,Bug      ,create issue,User has no right to create this type of issue.
+JETI Project (JETI)    ,Task     ,create issue,User has no right to create this type of issue.
+TOUCAN projekt (TOUCAN),Story    ,create issue,User has no right to create this type of issue.

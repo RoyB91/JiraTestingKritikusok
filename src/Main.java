@@ -8,9 +8,6 @@ public class Main {
 
     }
 
-    private String username = System.getenv("UserName");
-    private String password = System.getenv("PASSWORD");
-
     private WebDriver driver = new ChromeDriver();
 
     public WebDriver getDriver() {

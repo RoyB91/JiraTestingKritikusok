@@ -1,61 +1,48 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class EditIssueTest {
 
-    private Main main = new Main();
-    private WebDriver driver = main.getDriver();
-    private EditIssuePage editIssuePage;
-    private IssuePage issuePage = new IssuePage(driver);
-    private LoginPage loginPage = new LoginPage(driver);
+    private IssuePage issuePage = new IssuePage();
+    private LoginPage loginPage = new LoginPage();
+    private EditIssuePage editIssuePage = new EditIssuePage(issuePage);
+
 
     @BeforeEach
     public void setup() {
-        editIssuePage = new EditIssuePage(driver, issuePage);
-        driver.manage().window().maximize();
         loginPage.loginWithValidData();
 
     }
 
     @AfterEach
     public void close() {
-        driver.quit();
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "resources/editIssueDataTest.csv", numLinesToSkip = 4)
-    public void editMTPIssues(String url, String failMessage, String editMessage, String expected) {
-        driver.navigate().to(url);
-        issuePage.clickEditIssueButton();
-        editIssuePage.fillSummaryText(editMessage);
+    public void editMTPIssues(String url, String failMessage) {
+        issuePage.clickEditIssueButton(url);
+        editIssuePage.fillSummaryText();
         editIssuePage.pressUpdateButton();
-        assertEquals(expected, issuePage.getIssueSummaryNameText());
+        assertEquals(editIssuePage.getRandomUUID(), issuePage.getIssueSummaryNameText());
 
-        editIssuePage.resetIssueSummary(driver, url, issuePage.getDefaultSummaryText());
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "resources/editIssueDataTest.csv", numLinesToSkip = 1)
     public void checkPermissionToEditIssue(String url, String failMessage) {
-        driver.navigate().to(url);
-        assertTrue(issuePage.isEditIssueButtonIsThere(), failMessage);
+        assertTrue(issuePage.isEditIssueButtonIsThere(url), failMessage);
     }
-
 
     @ParameterizedTest
     @CsvFileSource(resources = "resources/editIssueDataTest.csv", numLinesToSkip = 4)
     public void updateIssueWithEmptySummary(String url) {
-        driver.navigate().to(url);
-        issuePage.clickEditIssueButton();
+        issuePage.clickEditIssueButton(url);
         editIssuePage.pressUpdateWithEmptyFields();
 
         assertTrue(editIssuePage.getErrorField().isDisplayed());
@@ -63,13 +50,13 @@ class EditIssueTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "resources/editIssueDataTest.csv", numLinesToSkip = 4)
-    public void cancelNotSaveEditIssue(String url, String failMessage, String editMessage) {
-        driver.navigate().to(url);
-        issuePage.clickEditIssueButton();
+    public void cancelNotSaveEditIssue(String url) {
+        issuePage.clickEditIssueButton(url);
+        String actualSummary = issuePage.getIssueSummaryNameText();
         editIssuePage.clearSummaryText();
-        editIssuePage.fillSummaryText(editMessage);
+        editIssuePage.fillSummaryText();
         editIssuePage.pressCancelAndConfirm();
-        assertEquals(issuePage.getDefaultSummaryText(), issuePage.getIssueSummaryNameText());
+        assertEquals(actualSummary, issuePage.getIssueSummaryNameText());
     }
 
 }

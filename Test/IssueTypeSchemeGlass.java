@@ -1,29 +1,19 @@
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import org.openqa.selenium.WebDriver;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class IssueTypeSchemeGlass {
 
-    private Main main = new Main();
-    private WebDriver driver = main.getDriver();
-    private LoginPage loginPage = new LoginPage(driver);
-    private ProjectPage projectPage = new ProjectPage(driver);
-    private GlassDocumentationPage glassDocumentationPage = new GlassDocumentationPage(driver);
+    private LoginPage loginPage = new LoginPage();
+    private ProjectPage projectPage = new ProjectPage();
+    private GlassDocumentationPage glassDocumentationPage = new GlassDocumentationPage();
 
 
     @BeforeEach
     public void setup() {
-        main.getDriver().manage().window().maximize();
         loginPage.loginWithValidData();
-    }
-
-    @AfterEach
-    public void close() {
-        main.getDriver().quit();
     }
 
     @ParameterizedTest

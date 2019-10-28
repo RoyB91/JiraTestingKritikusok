@@ -1,35 +1,22 @@
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class BrowseProjectsTest {
 
-    private Main main = new Main();
-    private WebDriver driver = main.getDriver();
-    private LoginPage loginPage = new LoginPage(driver);
-    private BrowseProjectsPage browseProjectsPage = new BrowseProjectsPage(driver);
+    private LoginPage loginPage = new LoginPage();
+    private BrowseProjectsPage browseProjectsPage = new BrowseProjectsPage();
 
-    private String url = "https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa";
 
-    public BrowseProjectsTest() { PageFactory.initElements(driver, this); }
+    public BrowseProjectsTest() {
+    }
 
     @BeforeEach
     public void login() {
-        driver.manage().window().maximize();
         loginPage.loginWithValidData();
-        driver.get(url);
-
-    }
-
-    @AfterEach
-    public void close() {
-        driver.quit();
 
     }
 
