@@ -1,8 +1,5 @@
 package main.java;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,7 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CreateIssuePage extends BasePage {
 
@@ -98,13 +94,15 @@ public class CreateIssuePage extends BasePage {
         createSubTask.click();
     }
 
-    public void checkTheSubTask() {
+    public boolean checkTheSubTask() {
         for (int i = 0; i < summaries.size(); i++) {
             if (summaries.get(i).getText().equals("text Subtask")) {
-                assertEquals(summaries.get(i).getText(), "text Subtask");
-                break;
+                return true;
+//                Assertions.assertEquals(summaries.get(i).getText(), "text Subtask");
+
             }
         }
+        return false;
     }
 
     public WebElement getProjectFieldButton() {
