@@ -19,7 +19,7 @@ public class CreateIssueTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/createIssue.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "../src/test/java/resources/createIssue.csv", numLinesToSkip = 1)
     public void createProject(String project, String issueType, String summary, String errorMessage) {
         createIssuePage.clickTheCreateButton();
         createIssuePage.selectAProject(project);
@@ -49,18 +49,18 @@ public class CreateIssueTest {
     }
 
 
-    @ParameterizedTest
-    @CsvFileSource(resources = "resources/createSubtaskDataTest.csv", numLinesToSkip = 1)
-    public void createSubTask(String url) {
-        createIssuePage.clickOnMoreButton(url);
-        createIssuePage.clickOnTheCreateSubTaskButton();
-        createIssuePage.fillTheSummaryField("text Subtask");
-        createIssuePage.clickTheCreateIssueButton();
-        createIssuePage.checkTheSubTask();
-    }
+//    @ParameterizedTest
+//    @CsvFileSource(resources = "../src/test/java/resources/createSubtaskDataTest.csv", numLinesToSkip = 1)
+//    public void createSubTask(String url) {
+//        createIssuePage.clickOnMoreButton(url);
+//        createIssuePage.clickOnTheCreateSubTaskButton();
+//        createIssuePage.fillTheSummaryField("text Subtask");
+//        createIssuePage.clickTheCreateIssueButton();
+//        createIssuePage.checkTheSubTask();
+//    }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/changeIssueTypes.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "../src/test/java/resources/changeIssueTypes.csv", numLinesToSkip = 1)
     public void selectIssueType(String projectName, String issueType) {
 
         createIssuePage.clickTheCreateButton();

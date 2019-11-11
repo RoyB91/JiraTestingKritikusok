@@ -17,7 +17,7 @@ public class ManageGlassTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/manageGlassDataTest.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "../src/test/java/resources/manageGlassDataTest.csv", numLinesToSkip = 1)
     public void manageGlass(String url) {
         glassDocumentationPage.goToVersions(url);
         glassDocumentationPage.clickOnSpecifiedVersion();

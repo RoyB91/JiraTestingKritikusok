@@ -1,4 +1,0 @@
-url                                                                           ,permissionType ,projectPermissionType
-/plugins/servlet/project-config/PP1/summary,Browse Projects,BROWSE_PROJECTS
-/plugins/servlet/project-config/PP1/summary,Create Issues  ,CREATE_ISSUES
-/plugins/servlet/project-config/PP1/summary,Edit Issues    ,EDIT_ISSUES

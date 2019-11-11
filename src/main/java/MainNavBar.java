@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.net.MalformedURLException;
+
 public class MainNavBar extends BasePage {
 
     private WebDriver driver;
@@ -25,7 +27,7 @@ public class MainNavBar extends BasePage {
     @FindBy(xpath = "//*[text()='You are now logged out. Any automatic login has also been stopped.']")
     private WebElement logoutMessage;
 
-    public MainNavBar() {
+    public MainNavBar(){
         this.driver = getDriver();
         PageFactory.initElements(driver, this);
     }

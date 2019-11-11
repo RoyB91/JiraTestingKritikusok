@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
 public class ComponentPage extends BasePage {
@@ -26,7 +27,7 @@ public class ComponentPage extends BasePage {
     @FindBy(xpath = "//*[@id='components-table']//*[text()='Kritikus komponens']")
     private WebElement testComponent;
 
-    public ComponentPage() {
+    public ComponentPage(){
         this.driver = getDriver();
         PageFactory.initElements(driver, this);
     }

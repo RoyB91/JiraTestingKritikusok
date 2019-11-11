@@ -1,14 +1,28 @@
+package test.java;
+
 import main.java.LoginPage;
-import org.junit.jupiter.api.Test;
+import main.java.WebDriverManager;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.Platform;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class LoginTest {
 
     private LoginPage loginPage = new LoginPage();
+
+    LoginTest() throws MalformedURLException {
+    }
+
 
     @Test
     public void loginWithValidDataFromLoginPage() {

@@ -8,6 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.net.MalformedURLException;
+
 public class BrowseProjectsPage extends BasePage {
 
     private WebDriver driver;
@@ -15,7 +17,7 @@ public class BrowseProjectsPage extends BasePage {
     private String browseProjectURL = getBaseURL() + "/secure/Dashboard.jspa";
 
 
-    BrowseProjectsPage() {
+    public BrowseProjectsPage() throws MalformedURLException {
         this.driver = getDriver();
         this.wait = getWait();
         PageFactory.initElements(driver, this);

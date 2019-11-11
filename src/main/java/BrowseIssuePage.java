@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.net.MalformedURLException;
 
 public class BrowseIssuePage extends BasePage {
 
@@ -30,7 +31,7 @@ public class BrowseIssuePage extends BasePage {
     @FindBy(id = "summary-val")
     private WebElement issueTitleText;
 
-    public BrowseIssuePage() {
+    public BrowseIssuePage(){
         this.driver = getDriver();
         this.wait = getWait();
         PageFactory.initElements(driver, this);

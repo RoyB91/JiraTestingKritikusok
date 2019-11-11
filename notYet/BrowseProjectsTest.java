@@ -1,3 +1,5 @@
+import main.java.BrowseProjectsPage;
+import main.java.LoginPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -21,7 +23,7 @@ public class BrowseProjectsTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/BrowseProjectsTestData.csv")
+    @CsvFileSource(resources = "../src/test/java/resources/BrowseProjectsTestData.csv")
     public void viewAllProjects(String project) {
         browseProjectsPage.clickProjectsDropdown();
         browseProjectsPage.clickViewAllProjects();
@@ -32,7 +34,7 @@ public class BrowseProjectsTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/BrowseProjectsTestData.csv")
+    @CsvFileSource(resources = "../src/test/java/resources/BrowseProjectsTestData.csv")
     public void viewBusinessProjects(String project) {
         browseProjectsPage.clickProjectsDropdown();
         browseProjectsPage.clickBusinessProjects();
@@ -43,7 +45,7 @@ public class BrowseProjectsTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/BrowseProjectsTestData.csv")
+    @CsvFileSource(resources = "../src/test/java/resources/BrowseProjectsTestData.csv")
     public void viewProjects(String project) {
         browseProjectsPage.clickProjectsDropdown();
         browseProjectsPage.clickViewAllProjects();

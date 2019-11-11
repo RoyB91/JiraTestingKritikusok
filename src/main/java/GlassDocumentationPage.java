@@ -9,6 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -48,7 +49,7 @@ public class GlassDocumentationPage extends BasePage {
     private WebElement permissionCheckMark;
     private List<WebElement> list;
 
-    public GlassDocumentationPage() {
+    public GlassDocumentationPage(){
         this.driver = getDriver();
         this.wait = getWait();
         PageFactory.initElements(driver, this);

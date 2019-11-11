@@ -1,7 +1,11 @@
+package test.java;
+
 import main.java.LoginPage;
 import main.java.MainNavBar;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.net.MalformedURLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,6 +14,9 @@ class LogoutTest {
 
     private LoginPage loginPage = new LoginPage();
     private MainNavBar mainNavBar = new MainNavBar();
+
+    LogoutTest() throws MalformedURLException {
+    }
 
     @BeforeEach
     public void login() {

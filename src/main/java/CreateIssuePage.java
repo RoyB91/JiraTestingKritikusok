@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.net.MalformedURLException;
 import java.util.List;
 
 
@@ -47,7 +48,7 @@ public class CreateIssuePage extends BasePage {
     @FindBy(css = ".stsummary")
     private List<WebElement> summaries;
 
-    public CreateIssuePage() {
+    public CreateIssuePage()  {
         this.driver = getDriver();
         this.webDriverWait = getWait();
         this.mainNavBar = new MainNavBar();

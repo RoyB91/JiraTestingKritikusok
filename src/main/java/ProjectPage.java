@@ -8,6 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.net.MalformedURLException;
+
 
 public class ProjectPage extends BasePage {
 
@@ -39,7 +41,7 @@ public class ProjectPage extends BasePage {
     private WebElement permissionText;
 
 
-    public ProjectPage() {
+    public ProjectPage(){
         this.driver = getDriver();
         this.mainNavBar = new MainNavBar();
         this.wait = getWait();

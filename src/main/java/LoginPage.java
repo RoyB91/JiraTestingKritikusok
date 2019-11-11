@@ -9,6 +9,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.net.MalformedURLException;
+
 public class LoginPage extends BasePage {
 
     private WebDriver driver;
@@ -17,7 +19,7 @@ public class LoginPage extends BasePage {
     private String dashBoardLoginPageUrl;
     private String finalURL = getBaseURL() + loginPageUrl;
 
-    public LoginPage() {
+    public LoginPage(){
         this.driver = getDriver();
         this.wait = getWait();
         PageFactory.initElements(driver, this);

@@ -11,6 +11,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.net.MalformedURLException;
+
 public class IssuePage extends BasePage {
 
     private WebDriver driver;
@@ -31,7 +33,7 @@ public class IssuePage extends BasePage {
 
     private String finalURL = getBaseURL() + "/browse";
 
-    public IssuePage() {
+    public IssuePage(){
         this.driver = getDriver();
         this.wait = getWait();
         editIssuePage = new EditIssuePage(this);
