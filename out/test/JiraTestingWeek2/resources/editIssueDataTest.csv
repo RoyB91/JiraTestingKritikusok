@@ -1,0 +1,5 @@
+url        ,failMessage
+/COALA-337 ,This user has no access to edit this type of COALA ISSUE
+/TOUCAN-114,This user has no access to edit this type of TOUCAN ISSUE
+/JETI-152  ,This user has no access to edit this type of JETI ISSUE
+/MTP-270   ,This user has no access to edit this type of  MTP ISSUE
