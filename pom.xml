@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-<!--    <properties>-->
-<!--        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
-<!--        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
-<!--        <java.version>11</java.version>-->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>11</java.version>
 <!--        <maven.compiler.source>${java.version}</maven.compiler.source>-->
 <!--        <maven.compiler.target>${java.version}</maven.compiler.target>-->
 <!--        <junit-platform.version>5.3.1</junit-platform.version>-->
-<!--    </properties>-->
+    </properties>
     <groupId>groupId</groupId>
     <artifactId>JiraTestingWeek</artifactId>
     <version>2.0-SNAPSHOT</version>
