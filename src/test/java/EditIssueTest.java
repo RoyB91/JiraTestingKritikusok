@@ -1,3 +1,5 @@
+package test.java;
+
 import main.java.EditIssuePage;
 import main.java.IssuePage;
 import main.java.LoginPage;

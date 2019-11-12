@@ -1,3 +1,5 @@
+package test.java;
+
 import main.java.BrowseIssuePage;
 import main.java.LoginPage;
 import org.junit.jupiter.api.BeforeEach;

@@ -17,7 +17,7 @@ public class BrowseProjectsPage extends BasePage {
     private String browseProjectURL = getBaseURL() + "/secure/Dashboard.jspa";
 
 
-    public BrowseProjectsPage() throws MalformedURLException {
+    public BrowseProjectsPage(){
         this.driver = getDriver();
         this.wait = getWait();
         PageFactory.initElements(driver, this);

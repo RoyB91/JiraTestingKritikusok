@@ -1,3 +1,5 @@
+package test.java;
+
 import main.java.GlassDocumentationPage;
 import main.java.LoginPage;
 import main.java.ProjectPage;
@@ -7,12 +9,11 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class IssueTypeSchemeGlass {
+public class PermissionGlassTest {
 
     private LoginPage loginPage = new LoginPage();
     private ProjectPage projectPage = new ProjectPage();
     private GlassDocumentationPage glassDocumentationPage = new GlassDocumentationPage();
-
 
     @BeforeEach
     public void setup() {
@@ -20,12 +21,12 @@ public class IssueTypeSchemeGlass {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "../src/test/java/resources/issueTypeSchemeDataTest.csv", numLinesToSkip = 1)
-    public void glassIssueType(String url, String issueTypeName, String expected) {
-
-        assertTrue(projectPage.checkIfProjectHasIssueName(url, issueTypeName));
+    @CsvFileSource(resources = "../src/test/java/resources/permissionType.csv", numLinesToSkip = 1)
+    public void verifyPermission(String url, String permissionType, String projectPermissionType) {
+        projectPage.clickOnPermissions(url);
+        assertEquals(projectPage.permissionMatrix(projectPermissionType), "Any logged in user");
         glassDocumentationPage.goToGlassDocumentationPage();
-        glassDocumentationPage.goToSchemes();
-        assertEquals(expected, glassDocumentationPage.getIssueTypeNameText());
+        glassDocumentationPage.goToPermissions();
+        assertTrue(glassDocumentationPage.getCheckMark(permissionType));
     }
 }

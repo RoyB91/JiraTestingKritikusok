@@ -1,3 +1,5 @@
+package test.java;
+
 import main.java.ComponentPage;
 import main.java.GlassDocumentationPage;
 import main.java.LoginPage;
