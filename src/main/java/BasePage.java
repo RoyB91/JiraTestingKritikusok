@@ -16,8 +16,6 @@ public abstract class BasePage {
     private String password = System.getenv("PASSWORD");
 
     BasePage() {
-//        driver.manage().window().maximize();
-
     }
 
     public String getBaseURL() {
@@ -25,6 +23,7 @@ public abstract class BasePage {
     }
 
     public WebDriver getDriver() {
+
         return driver;
     }
 

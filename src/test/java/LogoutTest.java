@@ -18,6 +18,7 @@ class LogoutTest {
 
     @BeforeEach
     public void login() {
+        WebDriverManager.getInstance().getDriver().get("https://www.google.com");
         loginPage.loginWithValidData();
     }
 
