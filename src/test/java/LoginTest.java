@@ -2,26 +2,21 @@ package test.java;
 
 import main.java.LoginPage;
 import main.java.WebDriverManager;
+
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.Platform;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.*;
 
 class LoginTest {
 
     private LoginPage loginPage = new LoginPage();
 
-    LoginTest() throws MalformedURLException {
-    }
+//
+//    @AfterAll
+//    public void close() {
+//        loginPage.getDriver().quit();
+//    }
 
 
     @Test
@@ -29,7 +24,7 @@ class LoginTest {
         loginPage.loginWithParameters(loginPage.getUsername(), loginPage.getPassword());
         loginPage.clickAvatarPicture();
 
-        assertTrue(loginPage.getLogOutButton().isDisplayed());
+        Assertions.assertTrue(loginPage.getLogOutButton().isDisplayed());
 
     }
 
@@ -41,7 +36,7 @@ class LoginTest {
         loginPage.writePassword(wrongPassword);
         loginPage.clickLoginButton();
 
-        assertTrue(loginPage.getErrorMessage().isDisplayed());
+        Assertions.assertTrue(loginPage.getErrorMessage().isDisplayed());
 
     }
 
@@ -53,7 +48,7 @@ class LoginTest {
         loginPage.writePassword(emptyField);
         loginPage.clickLoginButton();
 
-        assertTrue(loginPage.getErrorMessage().isDisplayed());
+        Assertions.assertTrue(loginPage.getErrorMessage().isDisplayed());
 
     }
 
@@ -65,10 +60,10 @@ class LoginTest {
         loginPage.clickLoginButton();
 
         try {
-            assertTrue(loginPage.getErrorMessage().isDisplayed());
+            Assertions.assertTrue(loginPage.getErrorMessage().isDisplayed());
         } catch (NoSuchElementException e) {
             loginPage.clickAvatarPicture();
-            assertFalse(loginPage.getLogOutButton().isDisplayed());
+            Assertions.assertFalse(loginPage.getLogOutButton().isDisplayed());
         }
 
     }

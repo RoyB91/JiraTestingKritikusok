@@ -1,8 +1,8 @@
-package test.java;
-
 import main.java.EditIssuePage;
 import main.java.IssuePage;
 import main.java.LoginPage;
+import main.java.WebDriverManager;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -23,10 +23,12 @@ class EditIssueTest {
         loginPage.loginWithValidData();
 
     }
+//    @AfterEach
+//    public void close() {
+//        loginPage.getDriver().quit();
+//    }
 
-    @AfterEach
-    public void close() {
-    }
+
 
     @ParameterizedTest
     @CsvFileSource(resources = "/editIssueDataTest.csv", numLinesToSkip = 4)

@@ -2,10 +2,10 @@ package test.java;
 
 import main.java.LoginPage;
 import main.java.MainNavBar;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import main.java.WebDriverManager;
 
-import java.net.MalformedURLException;
+import org.junit.jupiter.api.*;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,18 +15,26 @@ class LogoutTest {
     private LoginPage loginPage = new LoginPage();
     private MainNavBar mainNavBar = new MainNavBar();
 
-    LogoutTest() throws MalformedURLException {
-    }
 
     @BeforeEach
     public void login() {
         loginPage.loginWithValidData();
     }
 
+//    @AfterEach
+//    public void close() {
+//        loginPage.getDriver().quit();
+//    }
+
     @Test
     public void logoutJira() {
         mainNavBar.logout();
-        assertTrue(mainNavBar.getLogoutMessage().isDisplayed());
+        Assertions.assertTrue(mainNavBar.getLogoutMessage().isDisplayed());
     }
+
+//    @AfterAll
+//    public void quitDriver() {
+//        WebDriverManager.getInstance().getDriver().quit();
+//    }
 
 }
