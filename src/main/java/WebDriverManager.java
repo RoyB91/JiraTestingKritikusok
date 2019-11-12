@@ -21,6 +21,7 @@ public class WebDriverManager {
     }
 
     public WebDriver getDriver() {
+        System.setProperty("webdriver.chrome.driver", "/home/roland/Codecool/Advanced/2nd TW/JiraTestingWeek2/src/test/resources/chromedriver");
         driver.manage().window().maximize();
         return driver;
     }
