@@ -1,6 +1,5 @@
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
-import org.openqa.selenium.By;
+package main.java;
+
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -34,7 +33,7 @@ public class CreateIssuePage extends BasePage {
     private WebElement valueTrue;
     @FindBy(id = "issuetype-field")
     private WebElement fieldIssueTypeName;
-    @FindBy(linkText = "Main Testing Project (MTP)")
+    @FindBy(linkText = "main.java.Main Testing Project (MTP)")
     private WebElement findMTP;
     @FindBy(linkText = "Task")
     private WebElement findTask;
@@ -49,7 +48,7 @@ public class CreateIssuePage extends BasePage {
     @FindBy(css = ".stsummary")
     private List<WebElement> summaries;
 
-    CreateIssuePage() {
+    public CreateIssuePage() {
         this.driver = getDriver();
         this.webDriverWait = getWait();
         this.mainNavBar = new MainNavBar();

@@ -1,4 +1,5 @@
-import org.openqa.selenium.Alert;
+package main.java;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -6,9 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.concurrent.TimeUnit;
-
-class EditIssuePage extends BasePage {
+public class EditIssuePage extends BasePage {
 
     private WebDriver driver;
     private IssuePage issuePage;
@@ -31,7 +30,7 @@ class EditIssuePage extends BasePage {
 
     private UtilRandom random;
 
-    EditIssuePage(IssuePage issuePage) {
+    public EditIssuePage(IssuePage issuePage) {
         this.driver = getDriver();
         this.wait = getWait();
         this.issuePage = issuePage;

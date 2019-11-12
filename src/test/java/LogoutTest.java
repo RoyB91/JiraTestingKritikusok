@@ -1,3 +1,7 @@
+package test.java;
+
+import main.java.LoginPage;
+import main.java.MainNavBar;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

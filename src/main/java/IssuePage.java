@@ -1,3 +1,5 @@
+package main.java;
+
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -27,7 +29,7 @@ public class IssuePage extends BasePage {
 
     private String finalURL = getBaseURL() + "/browse";
 
-    IssuePage() {
+    public IssuePage() {
         this.driver = getDriver();
         this.wait = getWait();
         editIssuePage = new EditIssuePage(this);

@@ -1,3 +1,5 @@
+package main.java;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -24,7 +26,7 @@ public class ComponentPage extends BasePage {
     @FindBy(xpath = "//*[@id='components-table']//*[text()='Kritikus komponens']")
     private WebElement testComponent;
 
-    ComponentPage() {
+    public ComponentPage() {
         this.driver = getDriver();
         PageFactory.initElements(driver, this);
     }

@@ -1,3 +1,5 @@
+package main.java;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -27,7 +29,7 @@ public class BrowseIssuePage extends BasePage {
     @FindBy(id = "summary-val")
     private WebElement issueTitleText;
 
-    BrowseIssuePage() {
+    public BrowseIssuePage() {
         this.driver = getDriver();
         this.wait = getWait();
         PageFactory.initElements(driver, this);

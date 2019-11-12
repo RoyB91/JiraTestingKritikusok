@@ -1,3 +1,7 @@
+package test.java;
+
+import main.java.BrowseProjectsPage;
+import main.java.LoginPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;

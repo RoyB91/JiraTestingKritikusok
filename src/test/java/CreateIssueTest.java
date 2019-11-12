@@ -1,3 +1,7 @@
+package test.java;
+
+import main.java.CreateIssuePage;
+import main.java.LoginPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -31,7 +35,7 @@ public class CreateIssueTest {
     public void createIssue() {
 
         createIssuePage.clickTheCreateButton();
-        createIssuePage.selectAProject("Main Testing Project (MTP)");
+        createIssuePage.selectAProject("main.java.Main Testing Project (MTP)");
         createIssuePage.selectAnIssue("Task");
         createIssuePage.fillTheSummaryField("create issue");
         createIssuePage.clickTheCreateIssueButton();

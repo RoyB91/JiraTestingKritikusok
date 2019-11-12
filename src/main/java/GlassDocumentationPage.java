@@ -1,3 +1,5 @@
+package main.java;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class GlassDocumentationPage extends BasePage {
 
@@ -46,7 +47,7 @@ public class GlassDocumentationPage extends BasePage {
     private WebElement permissionCheckMark;
     private List<WebElement> list;
 
-    GlassDocumentationPage() {
+    public GlassDocumentationPage() {
         this.driver = getDriver();
         this.wait = getWait();
         PageFactory.initElements(driver, this);

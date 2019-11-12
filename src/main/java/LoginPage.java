@@ -1,4 +1,5 @@
-import org.openqa.selenium.By;
+package main.java;
+
 import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +16,7 @@ public class LoginPage extends BasePage {
     private String dashBoardLoginPageUrl;
     private String finalURL = getBaseURL() + loginPageUrl;
 
-    LoginPage() {
+    public LoginPage() {
         this.driver = getDriver();
         this.wait = getWait();
         PageFactory.initElements(driver, this);

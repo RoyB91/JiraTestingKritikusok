@@ -1,3 +1,5 @@
+package main.java;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,7 +15,7 @@ public class BrowseProjectsPage extends BasePage {
     private String browseProjectURL = getBaseURL() + "/secure/Dashboard.jspa";
 
 
-    BrowseProjectsPage() {
+    public BrowseProjectsPage() {
         this.driver = getDriver();
         this.wait = getWait();
         PageFactory.initElements(driver, this);

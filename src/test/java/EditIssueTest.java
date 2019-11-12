@@ -1,3 +1,8 @@
+package test.java;
+
+import main.java.EditIssuePage;
+import main.java.IssuePage;
+import main.java.LoginPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
