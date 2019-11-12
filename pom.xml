@@ -8,15 +8,30 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
-<!--        <maven.compiler.source>${java.version}</maven.compiler.source>-->
-<!--        <maven.compiler.target>${java.version}</maven.compiler.target>-->
-<!--        <junit-platform.version>5.3.1</junit-platform.version>-->
+        <!--        <maven.compiler.source>${java.version}</maven.compiler.source>-->
+        <!--        <maven.compiler.target>${java.version}</maven.compiler.target>-->
+        <!--        <junit-platform.version>5.3.1</junit-platform.version>-->
     </properties>
     <groupId>groupId</groupId>
     <artifactId>JiraTestingWeek</artifactId>
     <version>2.0-SNAPSHOT</version>
+
     <build>
+<!--        <testResources>-->
+<!--            <testResource>-->
+<!--                <directory>src/test/java</directory>-->
+<!--            </testResource>-->
+<!--            <testResource>-->
+<!--                <directory>src/test/resources</directory>-->
+<!--                <excludes>-->
+<!--                    <exclude>**/*.java</exclude>-->
+<!--                </excludes>-->
+<!--            </testResource>-->
+<!--        </testResources>-->
+
+        <defaultGoal>test</defaultGoal>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -31,6 +46,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M3</version>
                 <configuration>
+
                     <testFailureIgnore>true</testFailureIgnore>
                     <shutdown>kill</shutdown> <!-- Use it if required-->
                 </configuration>
@@ -73,8 +89,6 @@
             <artifactId>maven-compiler-plugin</artifactId>
             <version>3.7.0</version>
         </dependency>
-
-
 
 
     </dependencies>

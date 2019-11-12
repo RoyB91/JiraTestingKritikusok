@@ -21,7 +21,7 @@ public class PermissionGlassTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/permissionType.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/permissionType.csv", numLinesToSkip = 1)
     public void verifyPermission(String url, String permissionType, String projectPermissionType) {
         projectPage.clickOnPermissions(url);
         assertEquals(projectPage.permissionMatrix(projectPermissionType), "Any logged in user");

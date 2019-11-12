@@ -22,7 +22,7 @@ public class IssueTypeSchemeGlass {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/issueTypeSchemeDataTest.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/issueTypeSchemeDataTest.csv", numLinesToSkip = 1)
     public void glassIssueType(String url, String issueTypeName, String expected) {
 
         assertTrue(projectPage.checkIfProjectHasIssueName(url, issueTypeName));

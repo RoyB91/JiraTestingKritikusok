@@ -25,7 +25,7 @@ public class BrowseProjectsTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/BrowseProjectsTestData.csv")
+    @CsvFileSource(resources = "/BrowseProjectsTestData.csv")
     public void viewAllProjects(String project) {
         browseProjectsPage.clickProjectsDropdown();
         browseProjectsPage.clickViewAllProjects();
@@ -36,7 +36,7 @@ public class BrowseProjectsTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/BrowseProjectsTestData.csv")
+    @CsvFileSource(resources = "/BrowseProjectsTestData.csv")
     public void viewBusinessProjects(String project) {
         browseProjectsPage.clickProjectsDropdown();
         browseProjectsPage.clickBusinessProjects();
@@ -47,7 +47,7 @@ public class BrowseProjectsTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/BrowseProjectsTestData.csv")
+    @CsvFileSource(resources = "/BrowseProjectsTestData.csv")
     public void viewProjects(String project) {
         browseProjectsPage.clickProjectsDropdown();
         browseProjectsPage.clickViewAllProjects();

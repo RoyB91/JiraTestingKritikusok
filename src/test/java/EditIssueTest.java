@@ -29,7 +29,7 @@ class EditIssueTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/editIssueDataTest.csv", numLinesToSkip = 4)
+    @CsvFileSource(resources = "/editIssueDataTest.csv", numLinesToSkip = 4)
     public void editMTPIssues(String url, String failMessage) {
         issuePage.clickEditIssueButton(url);
         editIssuePage.fillSummaryText();
@@ -39,13 +39,13 @@ class EditIssueTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/editIssueDataTest.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/editIssueDataTest.csv", numLinesToSkip = 1)
     public void checkPermissionToEditIssue(String url, String failMessage) {
         assertTrue(issuePage.isEditIssueButtonIsThere(url), failMessage);
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/editIssueDataTest.csv", numLinesToSkip = 4)
+    @CsvFileSource(resources = "/editIssueDataTest.csv", numLinesToSkip = 4)
     public void updateIssueWithEmptySummary(String url) {
         issuePage.clickEditIssueButton(url);
         editIssuePage.pressUpdateWithEmptyFields();
@@ -54,7 +54,7 @@ class EditIssueTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/editIssueDataTest.csv", numLinesToSkip = 4)
+    @CsvFileSource(resources = "/editIssueDataTest.csv", numLinesToSkip = 4)
     public void cancelNotSaveEditIssue(String url) {
         issuePage.clickEditIssueButton(url);
         String actualSummary = issuePage.getIssueSummaryNameText();

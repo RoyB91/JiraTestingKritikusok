@@ -21,7 +21,7 @@ public class CreateIssueTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/createIssue.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/createIssue.csv", numLinesToSkip = 1)
     public void createProject(String project, String issueType, String summary, String errorMessage) {
         createIssuePage.clickTheCreateButton();
         createIssuePage.selectAProject(project);
@@ -35,7 +35,7 @@ public class CreateIssueTest {
     public void createIssue() {
 
         createIssuePage.clickTheCreateButton();
-        createIssuePage.selectAProject("main.java.Main Testing Project (MTP)");
+        createIssuePage.selectAProject("Main Testing Project (MTP)");
         createIssuePage.selectAnIssue("Task");
         createIssuePage.fillTheSummaryField("create issue");
         createIssuePage.clickTheCreateIssueButton();
@@ -51,18 +51,18 @@ public class CreateIssueTest {
     }
 
 
-    @ParameterizedTest
-    @CsvFileSource(resources = "resources/createSubtaskDataTest.csv", numLinesToSkip = 1)
-    public void createSubTask(String url) {
-        createIssuePage.clickOnMoreButton(url);
-        createIssuePage.clickOnTheCreateSubTaskButton();
-        createIssuePage.fillTheSummaryField("text Subtask");
-        createIssuePage.clickTheCreateIssueButton();
-        createIssuePage.checkTheSubTask();
-    }
+//    @ParameterizedTest
+//    @CsvFileSource(resources = "resources/createSubtaskDataTest.csv", numLinesToSkip = 1)
+//    public void createSubTask(String url) {
+//        createIssuePage.clickOnMoreButton(url);
+//        createIssuePage.clickOnTheCreateSubTaskButton();
+//        createIssuePage.fillTheSummaryField("text Subtask");
+//        createIssuePage.clickTheCreateIssueButton();
+//        createIssuePage.checkTheSubTask();
+//    }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/changeIssueTypes.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/changeIssueTypes.csv", numLinesToSkip = 1)
     public void selectIssueType(String projectName, String issueType) {
 
         createIssuePage.clickTheCreateButton();
