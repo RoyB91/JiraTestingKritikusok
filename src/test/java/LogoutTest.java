@@ -2,15 +2,11 @@ package test.java;
 
 import main.java.LoginPage;
 import main.java.MainNavBar;
-import main.java.WebDriverManager;
 
 import org.junit.jupiter.api.*;
 
 
-import static org.junit.jupiter.api.Assertions.*;
-
-
-class LogoutTest {
+class LogoutTest extends Initialization {
 
     private LoginPage loginPage = new LoginPage();
     private MainNavBar mainNavBar = new MainNavBar();
@@ -18,14 +14,8 @@ class LogoutTest {
 
     @BeforeEach
     public void login() {
-        WebDriverManager.getInstance().getDriver().get("https://www.google.com");
         loginPage.loginWithValidData();
     }
-
-//    @AfterEach
-//    public void close() {
-//        loginPage.getDriver().quit();
-//    }
 
     @Test
     public void logoutJira() {
@@ -33,9 +23,5 @@ class LogoutTest {
         Assertions.assertTrue(mainNavBar.getLogoutMessage().isDisplayed());
     }
 
-//    @AfterAll
-//    public void quitDriver() {
-//        WebDriverManager.getInstance().getDriver().quit();
-//    }
 
 }

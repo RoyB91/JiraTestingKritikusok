@@ -2,15 +2,18 @@ package test.java;
 
 import main.java.CreateIssuePage;
 import main.java.LoginPage;
+import main.java.WebDriverManager;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CreateIssueTest {
+public class CreateIssueTest extends Initialization {
 
     private LoginPage loginPage = new LoginPage();
     private CreateIssuePage createIssuePage = new CreateIssuePage();
@@ -21,7 +24,7 @@ public class CreateIssueTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "../src/test/java/resources/createIssue.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/createIssue.csv", numLinesToSkip = 1)
     public void createProject(String project, String issueType, String summary, String errorMessage) {
         createIssuePage.clickTheCreateButton();
         createIssuePage.selectAProject(project);
@@ -62,7 +65,7 @@ public class CreateIssueTest {
 //    }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "../src/test/java/resources/changeIssueTypes.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/changeIssueTypes.csv", numLinesToSkip = 1)
     public void selectIssueType(String projectName, String issueType) {
 
         createIssuePage.clickTheCreateButton();

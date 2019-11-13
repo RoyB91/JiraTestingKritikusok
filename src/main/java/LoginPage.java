@@ -26,6 +26,7 @@ public class LoginPage extends BasePage {
 
     }
 
+
     public void loginWithValidData() {
         try {
             driver.navigate().to(getBaseURL() + loginPageUrl);

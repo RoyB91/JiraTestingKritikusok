@@ -1,22 +1,15 @@
 package test.java;
 
 import main.java.LoginPage;
-import main.java.WebDriverManager;
 
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.NoSuchElementException;
 
 //import static org.junit.jupiter.api.Assertions.*;
 
-class LoginTest {
+class LoginTest extends Initialization {
 
     private LoginPage loginPage = new LoginPage();
-
-//
-//    @AfterAll
-//    public void close() {
-//        loginPage.getDriver().quit();
-//    }
 
 
     @Test

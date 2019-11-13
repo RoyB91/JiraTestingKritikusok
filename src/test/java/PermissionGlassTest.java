@@ -3,13 +3,15 @@ package test.java;
 import main.java.GlassDocumentationPage;
 import main.java.LoginPage;
 import main.java.ProjectPage;
+import main.java.WebDriverManager;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-public class PermissionGlassTest {
+public class PermissionGlassTest extends Initialization{
 
     private LoginPage loginPage = new LoginPage();
     private ProjectPage projectPage = new ProjectPage();
@@ -19,6 +21,7 @@ public class PermissionGlassTest {
     public void setup() {
         loginPage.loginWithValidData();
     }
+
 
     @ParameterizedTest
     @CsvFileSource(resources = "../src/test/java/resources/permissionType.csv", numLinesToSkip = 1)

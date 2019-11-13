@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class EditIssueTest {
+class EditIssueTest extends Initialization{
 
     private IssuePage issuePage = new IssuePage();
     private LoginPage loginPage = new LoginPage();
@@ -25,10 +25,6 @@ class EditIssueTest {
         loginPage.loginWithValidData();
 
     }
-//    @AfterEach
-//    public void close() {
-//        loginPage.getDriver().quit();
-//    }
 
 
 

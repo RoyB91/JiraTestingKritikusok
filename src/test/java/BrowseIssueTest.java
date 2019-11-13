@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.*;
 
-public class BrowseIssueTest {
+public class BrowseIssueTest extends Initialization {
 
     private LoginPage loginPage = new LoginPage();
     private BrowseIssuePage browseIssuePage = new BrowseIssuePage();
@@ -21,6 +21,8 @@ public class BrowseIssueTest {
     public void setup() {
         loginPage.loginWithValidData();
     }
+
+
 
 
     @Test
