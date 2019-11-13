@@ -31,7 +31,7 @@ public class BrowseIssueTest extends Initialization {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "resources/browseIssue.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/browseIssue.csv", numLinesToSkip = 1)
     public void projectJetiContainsIssue(String projectname) {
         browseIssuePage.navigateToAnIssue(projectname);
         assertTrue(browseIssuePage.issueTitleIsDisplayed());

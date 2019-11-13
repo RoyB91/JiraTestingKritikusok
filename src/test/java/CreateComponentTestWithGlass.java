@@ -27,7 +27,7 @@ class CreateComponentTestWithGlass extends Initialization {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "../src/test/java/resources/createCompDataTest.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/createCompDataTest.csv", numLinesToSkip = 1)
     public void createCompAndCheckWithGlass(String url, String compName, String assignee) {
         componentPage.createComponent(url, compName, assignee);
         glassDocumentationPage.goToGlassDocumentationPage();
