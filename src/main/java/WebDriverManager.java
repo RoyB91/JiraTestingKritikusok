@@ -14,8 +14,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class WebDriverManager {
-    private String password = System.getProperty("PASSWORD");
-    private static String hubUrl = "https://selenium:CoolCanvas19.@seleniumhub.codecool.codecanvas.hu/wd/hub";
+    private static String password = System.getProperty("PASSWORD");
+    private static String hubUrl = "https://selenium:" + password + "@seleniumhub.codecool.codecanvas.hu/wd/hub";
     //    private static WebDriverManager instance = null;
     private static WebDriver driver = null;
 
