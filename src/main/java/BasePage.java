@@ -10,7 +10,7 @@ import java.net.MalformedURLException;
 public abstract class BasePage {
 
     private String baseURL = "https://jira.codecool.codecanvas.hu";
-    private WebDriver driver = WebDriverManager.getInstance().getDriver();
+    private WebDriver driver = WebDriverManager.getDriver();
     private WebDriverWait wait = new WebDriverWait(driver, 10);
     private String username = System.getenv("UserName");
     private String password = System.getenv("PASSWORD");

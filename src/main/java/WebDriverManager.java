@@ -15,34 +15,48 @@ import java.net.URL;
 
 public class WebDriverManager {
     private String password = System.getProperty("PASSWORD");
-    private String hubUrl = "https://selenium:CoolCanvas19.@seleniumhub.codecool.codecanvas.hu/wd/hub";
-    private static WebDriverManager instance = null;
-    private WebDriver driver;
-    private ChromeOptions options = new ChromeOptions();
+    private static String hubUrl = "https://selenium:CoolCanvas19.@seleniumhub.codecool.codecanvas.hu/wd/hub";
+    //    private static WebDriverManager instance = null;
+    private static WebDriver driver = null;
 
-    private WebDriverManager() {
-    }
+//    private WebDriverManager() {
+//    }
 
-    public static WebDriverManager getInstance() {
-        if (instance == null) {
-            instance = new WebDriverManager();
+//    public static WebDriverManager getInstance() {
+//        if (instance == null) {
+//            instance = new WebDriverManager();
+//        }
+//        return instance;
+//    }
+
+    public static WebDriver getDriver() {
+        if (driver == null) {
+            try {
+                DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+                capabilities.setBrowserName("chrome");
+                capabilities.setPlatform(Platform.LINUX);
+                driver = new RemoteWebDriver(new URL(hubUrl), capabilities);
+            } catch (MalformedURLException e) {
+                e.fillInStackTrace();
+            }
         }
-        return instance;
-    }
-
-    public WebDriver getDriver() {
-        try {
-            DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-            capabilities.setBrowserName("chrome");
-            capabilities.setPlatform(Platform.LINUX);
-            driver = new RemoteWebDriver(new URL(hubUrl), capabilities);
-            return driver;
-
-        } catch (MalformedURLException e) {
-            e.fillInStackTrace();
-        }
-
 
         return driver;
     }
+
+//    public WebDriver getDriver() {
+//        try {
+//            DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+//            capabilities.setBrowserName("chrome");
+//            capabilities.setPlatform(Platform.LINUX);
+//            driver = new RemoteWebDriver(new URL(hubUrl), capabilities);
+//            return driver;
+//
+//        } catch (MalformedURLException e) {
+//            e.fillInStackTrace();
+//        }
+//
+//
+//        return driver;
+//    }
 }
