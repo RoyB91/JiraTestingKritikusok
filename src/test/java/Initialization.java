@@ -11,13 +11,11 @@ import org.junit.jupiter.api.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class Initialization {
 
-    private LoginPage loginPage = new LoginPage();
     private BasePage basePage;
 
     @BeforeClass
     public void init() {
         basePage.getDriver();
-//        loginPage.loginWithValidData();
     }
 
     @AfterClass
