@@ -1,5 +1,3 @@
-package test.java;
-
 import main.java.BrowseIssuePage;
 import main.java.LoginPage;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import test.java.Initialization;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -11,7 +11,9 @@ import java.net.URL;
 
 public class WebDriverManager {
     private static String password = System.getenv("PASSWORD");
-    private static String hubUrl = "https://selenium:" + password + "@seleniumhub.codecool.codecanvas.hu/wd/hub";
+    private static String hubUser = System.getenv("hubUSERNAME");
+    private static String hub = System.getenv("hubURL");
+    private static String hubUrl = "https://" + hubUser + ":" + password + "@" + hub;
     private static WebDriver driver = null;
 
 
@@ -21,7 +23,6 @@ public class WebDriverManager {
             try {
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--start-maximized");
-                options.addArguments("--enable-popup-blocking");
                 DesiredCapabilities capabilities = DesiredCapabilities.chrome();
                 capabilities.setCapability(ChromeOptions.CAPABILITY, options);
                 driver = new RemoteWebDriver(new URL(hubUrl), capabilities);

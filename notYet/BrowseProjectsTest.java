@@ -1,5 +1,3 @@
-package test.java;
-
 import main.java.BrowseProjectsPage;
 import main.java.LoginPage;
 import main.java.WebDriverManager;
@@ -8,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import test.java.Initialization;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

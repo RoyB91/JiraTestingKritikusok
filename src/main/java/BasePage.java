@@ -6,9 +6,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasePage {
 
-    private String baseURL = "https://jira.codecool.codecanvas.hu";
+    private String baseURL = System.getenv("baseURL");
     private WebDriver driver = WebDriverManager.getDriver();
-    private WebDriverWait wait = new WebDriverWait(driver, 10);
+    private int timeout = Integer.parseInt(System.getenv("TIMEOUT"));
+    private WebDriverWait wait = new WebDriverWait(driver,timeout);
     private String username = System.getenv("UserName");
     private String password = System.getenv("PASSWORD");
 

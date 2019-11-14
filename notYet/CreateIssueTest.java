@@ -1,5 +1,3 @@
-package test.java;
-
 import main.java.BasePage;
 import main.java.CreateIssuePage;
 import main.java.LoginPage;
@@ -8,6 +6,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.Keys;
+import test.java.Initialization;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

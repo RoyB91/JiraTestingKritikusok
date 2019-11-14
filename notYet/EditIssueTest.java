@@ -1,5 +1,3 @@
-package test.java;
-
 import main.java.EditIssuePage;
 import main.java.IssuePage;
 import main.java.LoginPage;
@@ -9,11 +7,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import test.java.Initialization;
 
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class EditIssueTest extends Initialization{
+class EditIssueTest extends Initialization {
 
     private IssuePage issuePage = new IssuePage();
     private LoginPage loginPage = new LoginPage();
