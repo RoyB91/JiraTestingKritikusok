@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CreateIssueTest {
+public class CreateIssueTest extends Initialization {
 
     private LoginPage loginPage = new LoginPage();
     private CreateIssuePage createIssuePage = new CreateIssuePage();
@@ -19,6 +19,7 @@ public class CreateIssueTest {
     public void setup() {
         loginPage.loginWithValidData();
     }
+
 
     @ParameterizedTest
     @CsvFileSource(resources = "/createIssue.csv", numLinesToSkip = 1)
