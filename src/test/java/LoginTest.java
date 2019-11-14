@@ -45,20 +45,20 @@ class LoginTest extends Initialization {
 
     }
 
-    @Test
-    public void caseSensitiveLoginCheck() {
-        loginPage.navigateURL();
-        loginPage.writeUsername(loginPage.getUsername().toUpperCase());
-        loginPage.writePassword(loginPage.getPassword());
-        loginPage.clickLoginButton();
-
-        try {
-            Assertions.assertTrue(loginPage.getErrorMessage().isDisplayed());
-        } catch (NoSuchElementException e) {
-            loginPage.clickAvatarPicture();
-            Assertions.assertFalse(loginPage.getLogOutButton().isDisplayed());
-        }
-
-    }
+//    @Test
+//    public void caseSensitiveLoginCheck() {
+//        loginPage.navigateURL();
+//        loginPage.writeUsername(loginPage.getUsername().toUpperCase());
+//        loginPage.writePassword(loginPage.getPassword());
+//        loginPage.clickLoginButton();
+//
+//        try {
+//            Assertions.assertTrue(loginPage.getErrorMessage().isDisplayed());
+//        } catch (NoSuchElementException e) {
+//            loginPage.clickAvatarPicture();
+//            Assertions.assertFalse(loginPage.getLogOutButton().isDisplayed());
+//        }
+//
+//    }
 
 }

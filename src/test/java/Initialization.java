@@ -1,24 +1,26 @@
 package test.java;
 
+import main.java.BasePage;
+import main.java.LoginPage;
 import main.java.WebDriverManager;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.TestInstance;
-import org.openqa.selenium.WebDriver;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.jupiter.api.*;
 
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-
 public class Initialization {
 
-    private WebDriver driver;
+    private LoginPage loginPage = new LoginPage();
+    private BasePage basePage;
 
-    @BeforeAll
+    @BeforeClass
     public void init() {
-        driver = WebDriverManager.getDriver();
+        basePage.getDriver();
+//        loginPage.loginWithValidData();
     }
 
-    @AfterAll
+    @AfterClass
     public void teardown() {
         WebDriverManager.getDriver().quit();
     }

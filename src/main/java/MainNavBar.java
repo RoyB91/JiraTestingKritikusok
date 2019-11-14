@@ -4,12 +4,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 
 public class MainNavBar extends BasePage {
 
     private WebDriver driver;
+    private WebDriverWait wait;
     @FindBy(id = "create_link")
     private WebElement createButton;
     @FindBy(className = "aui-avatar-inner")
@@ -29,10 +32,12 @@ public class MainNavBar extends BasePage {
 
     public MainNavBar(){
         this.driver = getDriver();
+        this.wait = getWait();
         PageFactory.initElements(driver, this);
     }
 
     public WebElement getCreateButton() {
+
         return createButton;
     }
 

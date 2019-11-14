@@ -1,8 +1,6 @@
 package main.java;
 
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -47,8 +45,10 @@ public class CreateIssuePage extends BasePage {
     private WebElement createSubTask;
     @FindBy(css = ".stsummary")
     private List<WebElement> summaries;
+    @FindBy(xpath = "//*[@title='Press undefined+` to cancel']")
+    private WebElement cancelButton;
 
-    public CreateIssuePage()  {
+    public CreateIssuePage() {
         this.driver = getDriver();
         this.webDriverWait = getWait();
         this.mainNavBar = new MainNavBar();
@@ -56,7 +56,16 @@ public class CreateIssuePage extends BasePage {
     }
 
 
+    public void cancelSettings() {
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(projectFieldButton)).click();
+        cancelButton.click();
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+    }
+
+
     public void clickTheCreateButton() {
+//        webDriverWait.until(ExpectedConditions.elementToBeClickable(mainNavBar.getCreateButton()));
         mainNavBar.getCreateButton().click();
     }
 
@@ -153,5 +162,9 @@ public class CreateIssuePage extends BasePage {
 
     public WebElement getErrorMessage() {
         return webDriverWait.until(ExpectedConditions.visibilityOf(errorMessage));
+    }
+
+    public WebElement getCancelButton() {
+        return cancelButton;
     }
 }

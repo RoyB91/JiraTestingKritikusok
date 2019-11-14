@@ -74,6 +74,12 @@
         </dependency>
 
 
+        <!-- https://mvnrepository.com/artifact/org.pantsbuild/junit-runner -->
+        <dependency>
+            <groupId>org.pantsbuild</groupId>
+            <artifactId>junit-runner</artifactId>
+            <version>1.0.18</version>
+        </dependency>
 
 
     </dependencies>
