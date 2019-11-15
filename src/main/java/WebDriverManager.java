@@ -5,7 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class WebDriverManager {
 
-    private static WebDriver driver = null;
+    private static WebDriver driver;
 
 
     private WebDriverManager() {
@@ -14,10 +14,11 @@ public class WebDriverManager {
     public static WebDriver getDriver() {
         System.setProperty("webdriver.chrome.driver", "/src/test/resources/chromedriver");
         driver.manage().window().maximize();
-
-        if (driver == null) {
-            driver = new ChromeDriver();
-        }
+        driver = new ChromeDriver();
         return driver;
+    }
+
+    public static void quit() {
+        driver.quit();
     }
 }

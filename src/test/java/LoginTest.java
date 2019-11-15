@@ -6,7 +6,7 @@ import org.openqa.selenium.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LoginTest {
+class LoginTest extends Initialization {
 
     private LoginPage loginPage = new LoginPage();
 
