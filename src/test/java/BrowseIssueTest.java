@@ -4,15 +4,14 @@ import main.java.BrowseIssuePage;
 import main.java.LoginPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.awt.*;
 
-public class BrowseIssueTest {
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class BrowseIssueTest extends Initialization{
 
     private LoginPage loginPage = new LoginPage();
     private BrowseIssuePage browseIssuePage = new BrowseIssuePage();

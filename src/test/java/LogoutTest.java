@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class LogoutTest {
+class LogoutTest extends Initialization{
 
     private LoginPage loginPage = new LoginPage();
     private MainNavBar mainNavBar = new MainNavBar();

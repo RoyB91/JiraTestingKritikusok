@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class LoginTest extends Initialization {
 
     private LoginPage loginPage = new LoginPage();
-
     @Test
     public void loginWithValidDataFromLoginPage() {
         loginPage.loginWithParameters(loginPage.getUsername(), loginPage.getPassword());

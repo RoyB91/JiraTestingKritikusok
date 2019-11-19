@@ -29,6 +29,7 @@ public class CreateIssueTest extends Initialization {
         createIssuePage.selectAnIssue(issueType);
         createIssuePage.fillTheSummaryField(summary);
         assertEquals(createIssuePage.getFieldProjectName(), project, errorMessage);
+        createIssuePage.waitForAjaxControls(15);
 
     }
 
@@ -52,15 +53,15 @@ public class CreateIssueTest extends Initialization {
     }
 
 
-//    @ParameterizedTest
-//    @CsvFileSource(resources = "resources/createSubtaskDataTest.csv", numLinesToSkip = 1)
-//    public void createSubTask(String url) {
-//        createIssuePage.clickOnMoreButton(url);
-//        createIssuePage.clickOnTheCreateSubTaskButton();
-//        createIssuePage.fillTheSummaryField("text Subtask");
-//        createIssuePage.clickTheCreateIssueButton();
-//        createIssuePage.checkTheSubTask();
-//    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "resources/createSubtaskDataTest.csv", numLinesToSkip = 1)
+    public void createSubTask(String url) {
+        createIssuePage.clickOnMoreButton(url);
+        createIssuePage.clickOnTheCreateSubTaskButton();
+        createIssuePage.fillTheSummaryField("text Subtask");
+        createIssuePage.clickTheCreateIssueButton();
+        createIssuePage.checkTheSubTask();
+    }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/changeIssueTypes.csv", numLinesToSkip = 1)

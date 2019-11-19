@@ -1,23 +1,39 @@
 package test.java;
 
 import main.java.WebDriverManager;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
 import org.openqa.selenium.WebDriver;
 
-
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestInstance(TestInstance.Lifecycle.PER_METHOD)
 public class Initialization {
 
+    public WebDriver driver;
 
+//    @BeforeClass
+//    public static void init() {
+//        WebDriverManager.initDriver();
+//    }
+//
+//    @AfterClass
+//    public static void teardown() {
+//        WebDriverManager.getDriver().close();
+//        WebDriverManager.quit();
+//    }
 
-    @BeforeAll
-    public void init() { WebDriverManager.getDriver();
+    @BeforeEach
+    public  void init() {
+        WebDriverManager.initDriver();
     }
 
-    @AfterAll
-    public void teardown() {
+    @AfterEach
+    public  void teardown() {
+        WebDriverManager.getDriver().close();
         WebDriverManager.quit();
     }
+
+
 }

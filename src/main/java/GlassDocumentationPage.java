@@ -73,6 +73,7 @@ public class GlassDocumentationPage extends BasePage {
     }
 
     public void goToGlassDocumentationPage() {
+        wait.until(ExpectedConditions.elementToBeClickable(glassDocumentationButton));
         wait.until(ExpectedConditions.visibilityOf(glassDocumentationButton));
         glassDocumentationButton.click();
     }

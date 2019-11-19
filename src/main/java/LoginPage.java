@@ -30,6 +30,7 @@ public class LoginPage extends BasePage {
             writePassword(getPassword());
             clickLoginButton();
         } catch (UnhandledAlertException e) {
+            waitForAjaxControls(10);
             driver.switchTo().alert().accept();
         }
     }

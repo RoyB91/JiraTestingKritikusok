@@ -70,7 +70,7 @@ public class CreateIssuePage extends BasePage {
         webDriverWait.until(ExpectedConditions.elementToBeClickable(issueTypeField)).click();
         webDriverWait.until(ExpectedConditions.elementToBeClickable(issueTypeField)).sendKeys(issueType);
         webDriverWait.until(ExpectedConditions.elementToBeClickable(issueTypeField)).sendKeys(Keys.TAB);
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(issueTypeField));
+//        webDriverWait.until(ExpectedConditions.elementToBeClickable(issueTypeField));
     }
 
     public void fillTheSummaryField(String summary) {

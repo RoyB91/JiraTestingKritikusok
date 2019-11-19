@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-public class BrowseProjectsTest {
+public class BrowseProjectsTest extends Initialization {
 
     private LoginPage loginPage = new LoginPage();
     private BrowseProjectsPage browseProjectsPage = new BrowseProjectsPage();
